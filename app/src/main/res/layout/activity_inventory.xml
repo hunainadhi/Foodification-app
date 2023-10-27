@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto layout, variables, and unit scale are not yet supported -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/android_lar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <View  android:id="@+id/inventoryBar"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="#8BCF7B"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="23.28dp"
+
+        />
+
+    <TextView
+        android:id="@+id/inventory"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/inventory_color"
+        android:layout_marginStart="25.65dp"
+        android:layout_marginTop="36.11dp"
+        android:layout_width="113dp"
+        android:layout_height="30dp"
+        android:text="@string/inventory_string" />
+
+        <!-- RecyclerView for displaying ingredients -->
+<!--    <ListView-->
+<!--        android:id="@+id/ingredientList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:divider="@android:color/darker_gray"-->
+<!--        android:dividerHeight="1dp"-->
+<!--            android:layout_above="@+id/addIngredientButton"-->
+<!--            android:layout_below="@+id/inventoryBar"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addIngredientButton"
+        android:layout_below="@+id/inventoryBar" />
+
+        <!-- Add Ingredient Button -->
+    <Button
+        android:id="@+id/addIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="#01AED8"
+        android:text="Add Ingredient"
+        tools:ignore="TextContrastCheck" />
+
+
+</RelativeLayout>

@@ -14,4 +14,5 @@
     <string name="list_of_thi">List of things I need</string>
     <string name="explore">Explore</string>
     <string name="generate_ne">Generate new and\nrandom recipes</string>
+    <string name="inventory_string">Inventory</string>
 </resources>
