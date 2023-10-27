@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Foodification</string>
+    <string name="Welcome">Hi, User</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="try_our_new">Try our new recipes!</string>
+    <string name="tired_of_da">Tired of daal-chawal?\nUpdated new recipes just for you!</string>
+    <string name="check_it_ou">Check it out</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="inventory">Inventory</string>
+    <string name="your_list_o">Your list of items</string>
+    <string name="my_recipes">My Recipes</string>
+    <string name="generate_re">Generate recipes</string>
+    <string name="my_grocery">My Grocery</string>
+    <string name="list_of_thi">List of things I need</string>
+    <string name="explore">Explore</string>
+    <string name="generate_ne">Generate new and\nrandom recipes</string>
+</resources>

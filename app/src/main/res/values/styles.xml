@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Welcome">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="welcome_back">
+        <item name="android:textSize">9.5sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="try_our_new">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="tired_of_da">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="check_it_ou">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="get_started">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="inventory">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="your_list_o">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#606060</item>
+    </style>
+    <style name="my_recipes">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="generate_re">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#9C9D9F</item>
+    </style>
+    <style name="my_grocery">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="list_of_thi">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#9C9D9F</item>
+    </style>
+    <style name="explore">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#292A2A</item>
+    </style>
+    <style name="generate_ne">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#606060</item>
+    </style>
+</resources>
