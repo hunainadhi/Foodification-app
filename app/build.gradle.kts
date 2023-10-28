@@ -2,6 +2,7 @@ import com.android.tools.r8.internal.im
 
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,8 +45,6 @@ dependencies {
     //Inventory//Malik
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.firebase:firebase-client-android:2.5.2")
-    implementation("com.google.gms:google-services:4.3.2")
-    implementation("com.google.firebase:firebase-core:9.6.1")
+
     //End
 }
