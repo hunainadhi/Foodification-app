@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "497075425244",
+    "project_id": "foodification-2b762",
+    "storage_bucket": "foodification-2b762.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497075425244:android:e17101303fd6668a288919",
+        "android_client_info": {
+          "package_name": "com.example.foodification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBceJ3D-iWo5yswmLr1VqGOWawc4rVGzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
