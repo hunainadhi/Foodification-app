@@ -16,13 +16,24 @@
             android:name=".FirstActivity"
             android:exported="false" />
         <activity
-            android:name=".Inventory"
+            android:name=".RecipePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".RecipeDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recipe_detail"
+            android:parentActivityName=".RecipePage"> <!-- Specify the parent activity -->
+            <!-- meta-data element for parent activity support on Android 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RecipePage" />
         </activity>
 
         <meta-data

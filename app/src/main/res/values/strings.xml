@@ -15,4 +15,6 @@
     <string name="explore">Explore</string>
     <string name="generate_ne">Generate new and\nrandom recipes</string>
     <string name="inventory_string">Inventory</string>
+    <string name="title_activity_recipe_detail">Recipe Details</string>
+    <string name="Open">Open</string>
 </resources>
