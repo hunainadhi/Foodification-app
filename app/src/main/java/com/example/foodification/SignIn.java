@@ -1,5 +1,6 @@
 package com.example.foodification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -31,8 +32,10 @@ public class SignIn extends Fragment {
         signInButton = view.findViewById(R.id.buttonSignIn);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString();
 
@@ -55,6 +58,8 @@ public class SignIn extends Fragment {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Log.d("SignIn","Success");
+                                Intent myIntent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                                getActivity().startActivity(myIntent);
                                 // Sign-in was successful; do something with the user
                             } else {
                                 // Sign-in failed; display an error message to the user
