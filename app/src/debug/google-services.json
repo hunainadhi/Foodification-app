@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "391310365466",
+    "firebase_url": "https://foodification-feb48-default-rtdb.firebaseio.com",
+    "project_id": "foodification-feb48",
+    "storage_bucket": "foodification-feb48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391310365466:android:ce12f272905abe066812a3",
+        "android_client_info": {
+          "package_name": "com.example.foodification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBECut1Rx4bA0LK_OkQ4_39SE6JlLejQ-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391310365466:android:dd83038ea4e72e126812a3",
+        "android_client_info": {
+          "package_name": "com.example.foodification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBECut1Rx4bA0LK_OkQ4_39SE6JlLejQ-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
