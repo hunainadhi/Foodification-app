@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp extends Fragment {
@@ -41,6 +43,11 @@ public class SignUp extends Fragment {
                                 // Sign-up was successful; the user is created
                                 // You may want to handle additional user profile setup here
                                 Log.d("SignUp","Success");
+                                Toast.makeText(getActivity().getApplicationContext(), "Account has been created successfully", Toast.LENGTH_SHORT).show();
+                                SignIn signInFragment = new SignIn();
+                                requireActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragmentContainer, signInFragment)
+                                        .commit();
                             } else {
                                 // Sign-up failed; display an error message to the user
                                 Log.d("SignUp","Fail");
