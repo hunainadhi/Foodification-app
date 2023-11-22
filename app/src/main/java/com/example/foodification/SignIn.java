@@ -60,6 +60,10 @@ public class SignIn extends Fragment {
                                 Log.d("SignIn","Success");
                                 Intent myIntent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                                 getActivity().startActivity(myIntent);
+
+                                myIntent.putExtra("USER_EMAIL", email);
+                                startActivity(myIntent);
+
                                 // Sign-in was successful; do something with the user
                             } else {
                                 // Sign-in failed; display an error message to the user

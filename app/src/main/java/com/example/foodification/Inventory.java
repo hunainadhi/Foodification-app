@@ -30,6 +30,7 @@ public class Inventory extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private RecyclerView ingredientList;
+    private String email, safeEmail;
     private IngredientAdapter adapter;
     private static final int MENU_DELETE_OPTION = R.id.delete_option;
     private static final int MENU_MODIFY_OPTION = R.id.modify_option;
@@ -38,10 +39,18 @@ public class Inventory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
-
+        email = getIntent().getStringExtra("USER_EMAIL");
+        safeEmail = email.replace('.', ',')
+                .replace('#', '-')
+                .replace('$', '+')
+                .replace('[', '(')
+                .replace(']', ')');
         FirebaseApp.initializeApp(this);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("ingredients");
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(safeEmail)
+                .child("ingredients");
 
         Button addIngredientButton = findViewById(R.id.addIngredientButton);
         ingredientList = findViewById(R.id.ingredientList);
