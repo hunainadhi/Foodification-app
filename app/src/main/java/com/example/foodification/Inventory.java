@@ -5,13 +5,18 @@ import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +36,7 @@ public class Inventory extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private RecyclerView ingredientList;
+    private String email, safeEmail;
     private IngredientAdapter adapter;
     private static final int MENU_DELETE_OPTION = R.id.delete_option;
     private static final int MENU_MODIFY_OPTION = R.id.modify_option;
@@ -38,13 +45,28 @@ public class Inventory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+        //email = getIntent().getStringExtra("USER_EMAIL");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String email = preferences.getString("global_variable_key", "default_value");
+
 
         FirebaseApp.initializeApp(this);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("ingredients");
 
-        Button addIngredientButton = findViewById(R.id.addIngredientButton);
+        safeEmail = email.replace('.', ',')
+                .replace('#', '-')
+                .replace('$', '+')
+                .replace('[', '(')
+                .replace(']', ')');
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(safeEmail)
+                .child("ingredients");
+
+        FloatingActionButton addIngredientButton = findViewById(R.id.addIngredientButton);
         ingredientList = findViewById(R.id.ingredientList);
+        Button backbtn = findViewById(R.id.backButton);
 
         // Initialize RecyclerView and Adapter
         adapter = new IngredientAdapter(this);
@@ -57,6 +79,13 @@ public class Inventory extends AppCompatActivity {
             public void onClick(View view) {
                 // Show a dialog to add ingredients
                 showAddIngredientDialog();
+            }
+        });
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              finish();
             }
         });
 
@@ -140,12 +169,29 @@ public class Inventory extends AppCompatActivity {
 
         final EditText nameEditText = dialog.findViewById(R.id.nameEditText);
         final EditText quantityEditText = dialog.findViewById(R.id.quantityEditText);
-        final EditText unitEditText = dialog.findViewById(R.id.unitEditText);
+        //final EditText unitEditText = dialog.findViewById(R.id.unitEditText);
+//        String[] units = new String[] {"kg", "g", "lbs", "oz", "ml", "l", "cup","tsp","tbsp"}; // Example units
+//
+//        AutoCompleteTextView unitAutoCompleteTextView = findViewById(R.id.unitAutoCompleteTextView);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, units);
+//        unitAutoCompleteTextView.setAdapter(adapter);
+
+        String[] units = new String[] {"Select Unit", "kg", "g", "lbs", "oz", "ml", "l", "cup"}; // Add "Select Unit" as the first item
+        Spinner unitSpinner = findViewById(R.id.unitSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(adapter);
+
         Button modifyButton = dialog.findViewById(R.id.addButton);
 
         nameEditText.setText(ingredient.getName());
         quantityEditText.setText(String.valueOf(ingredient.getQuantity()));
-        unitEditText.setText(ingredient.getUnit());
+        //unitEditText.setText(ingredient.getUnit());
+
+        //unitAutoCompleteTextView.setText(ingredient.getUnit());
+        int spinnerPosition = adapter.getPosition(ingredient.getUnit());
+        unitSpinner.setSelection(spinnerPosition);
+
 
         modifyButton.setText("Modify");
 
@@ -154,8 +200,8 @@ public class Inventory extends AppCompatActivity {
             public void onClick(View view) {
                 String name = nameEditText.getText().toString().trim();
                 String quantityStr = quantityEditText.getText().toString().trim();
-                String unit = unitEditText.getText().toString().trim();
-
+                String unit = unitSpinner.getSelectedItem().toString().trim();
+//String selectedUnit = unitSpinner.getSelectedItem().toString();
                 if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty()) {
                     double quantity = Double.parseDouble(quantityStr);
 
@@ -186,7 +232,13 @@ public class Inventory extends AppCompatActivity {
 
         final EditText nameEditText = dialog.findViewById(R.id.nameEditText);
         final EditText quantityEditText = dialog.findViewById(R.id.quantityEditText);
-        final EditText unitEditText = dialog.findViewById(R.id.unitEditText);
+        //final EditText unitEditText = dialog.findViewById(R.id.unitEditText);
+        String[] units = new String[] {"Select Unit", "Kg", "g", "Lbs", "Oz", "Ml", "L", "Cup"}; // Add "Select Unit" as the first item
+        final Spinner unitSpinner = dialog.findViewById(R.id.unitSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(adapter);
+
         Button addButton = dialog.findViewById(R.id.addButton);
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -194,9 +246,9 @@ public class Inventory extends AppCompatActivity {
             public void onClick(View view) {
                 String name = nameEditText.getText().toString().trim();
                 String quantityStr = quantityEditText.getText().toString().trim();
-                String unit = unitEditText.getText().toString().trim();
+                String unit = unitSpinner.getSelectedItem().toString().trim();
 
-                if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty()) {
+                if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty()||unit.equalsIgnoreCase("Select Unit")) {
                     double quantity = Double.parseDouble(quantityStr);
 
                     // Create a new Ingredient object

@@ -32,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
         View invVIew = findViewById(R.id.rectangle_8);
         invVIew.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, Inventory.class);
+            String userEmail = getIntent().getStringExtra("USER_EMAIL");
+            intent.putExtra("USER_EMAIL", userEmail);
             startActivity(intent);
         });
         View RecView = findViewById(R.id.rectangle_9);
