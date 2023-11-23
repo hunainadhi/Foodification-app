@@ -1,0 +1,16 @@
+<!-- res/drawable/textview_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#01AED8"
+        android:endColor="#8BCF7B"
+        android:centerColor="#01AED8"
+        android:centerX="0.5"
+        android:centerY="0.5"
+        android:angle="135"
+        android:type="linear"/>
+    <gradient
+        android:startColor="#292A2A"
+        android:endColor="#292A2A"
+        android:angle="0"
+        android:type="linear"/>
+</shape>

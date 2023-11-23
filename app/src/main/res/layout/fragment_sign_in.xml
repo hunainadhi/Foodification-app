@@ -1,38 +1,140 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/textView"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:text="Welcome to Foodification"/>
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_7" />
 
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:hint="Email"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:height="50dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="16dp">
+        <LinearLayout
+            android:id="@+id/textLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="-50dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rectangle_23" >
+        <TextView
+            android:id="@+id/textView"
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Foodification"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/subTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Let’s get to know"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/subTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="each other better!"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:hint="Password"
-        android:height="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        <LinearLayout
+            android:id="@+id/textInputLayoutEmail"
+            style="@style/Widget.App.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textLayout"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/oval_background">
 
-    <Button
-        android:id="@+id/buttonSignIn"
-        android:text="Sign In"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:minHeight="50dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
+        </LinearLayout>
+
+        <!-- Password EditText -->
+        <LinearLayout
+            android:id="@+id/textInputLayoutPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/textInputLayoutEmail"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/oval_background">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:minHeight="50dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkboxRememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayoutPassword"
+            android:layout_centerVertical="true"
+            android:minHeight="50dp"
+            android:text="Remember Me" />
+
+        <TextView
+            android:id="@+id/textForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayoutPassword"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/checkboxRememberMe"
+            android:gravity="right"
+            android:text="Forgot Password?" />
+
+        <Button
+            android:id="@+id/buttonSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textForgotPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangle_22"
+            android:text="Sign in" />
+    </RelativeLayout>
+<!--    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ellipse_25" />-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-30dp"
+        android:background="@drawable/hh_1" />
+</RelativeLayout>

@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 public class FirstActivity extends AppCompatActivity {
 
-    private Button toggleFragmentButton;
+    private TextView toggleFragmentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
