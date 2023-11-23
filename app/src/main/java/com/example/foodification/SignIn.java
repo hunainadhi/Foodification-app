@@ -52,6 +52,7 @@ public class SignIn extends Fragment {
         signInButton = view.findViewById(R.id.buttonSignIn);
         forgotPasswordTextView = view.findViewById(R.id.textForgotPassword);
         TextView yourTextView = view.findViewById(R.id.textView);
+        TextView yourSubTextView = view.findViewById(R.id.subTextView1);
         rememberMeCheckBox = view.findViewById(R.id.checkboxRememberMe);
         loadRememberMeData();
 
@@ -62,6 +63,8 @@ public class SignIn extends Fragment {
         // Create a SpannableString with a gradient
         String text = yourTextView.getText().toString();
         SpannableString spannable = new SpannableString(text);
+        String subText = yourSubTextView.getText().toString();
+        SpannableString subSpannable = new SpannableString(subText);
 
         // Apply the gradient color to the text
         LinearGradient linearGradient = new LinearGradient(0, 0, 0, yourTextView.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
@@ -74,9 +77,11 @@ public class SignIn extends Fragment {
         };
 
         spannable.setSpan(gradientColorSpan, 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        subSpannable.setSpan(gradientColorSpan, 0, subText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // Set the SpannableString to the TextView
-        yourTextView.setText(spannable);
+        //yourTextView.setText(spannable);
+        yourSubTextView.setText(subSpannable);
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {

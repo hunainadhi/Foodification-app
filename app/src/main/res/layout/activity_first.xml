@@ -27,8 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="100dp"
-        android:textColor="@color/white"
+        android:layout_marginLeft="90dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
         android:paddingBottom="20dp"
         android:text="Don't have an account?" />
     <TextView

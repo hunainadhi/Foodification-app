@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class FirstActivity extends AppCompatActivity {
 
     private TextView toggleFragmentButton;
+    private TextView toggleFragmentText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
 
         toggleFragmentButton = findViewById(R.id.toggleFragmentButton);
-
+        toggleFragmentText = findViewById(R.id.toggleFragmentText);
         if (savedInstanceState == null) {
             // Show the SignIn by default
             SignIn signInFragment = new SignIn();
@@ -34,6 +35,7 @@ public class FirstActivity extends AppCompatActivity {
                         SignUp signUpFragment = new SignUp();
                         replaceFragment(signUpFragment);
                         toggleFragmentButton.setText("Sign In");
+                        toggleFragmentText.setText("Already have an account?");
                     } else {
                         SignIn signInFragment = new SignIn();
                         replaceFragment(signInFragment);
