@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp extends Fragment {

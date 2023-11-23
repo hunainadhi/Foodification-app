@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
@@ -24,13 +24,16 @@
         android:inputType="numberDecimal"
         android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/unitEditText"
+    <Spinner
+        android:id="@+id/unitSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
+
         android:hint="Unit"
-        android:inputType="text"
-        android:minHeight="48dp" />
+
+        android:dropDownHeight="wrap_content"
+        android:dropDownWidth="match_parent" />
 
     <Button
         android:id="@+id/addButton"

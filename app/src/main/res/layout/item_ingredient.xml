@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <LinearLayout
+        android:id="@+id/lLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8BCF7B"
         android:orientation="vertical"
         android:padding="16dp"
         tools:ignore="MissingConstraints">
@@ -17,9 +18,9 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="Ingredient Name"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textAppearance="@style/get_started" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,16 +33,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantity: "
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textAppearance="@style/get_started" />
 
             <TextView
                 android:id="@+id/unitTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="Unit: "
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textAppearance="@style/get_started" />
         </LinearLayout>
+
     </LinearLayout>
+    <View
+        android:id="@+id/line_5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/lLayout"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

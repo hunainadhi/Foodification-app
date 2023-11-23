@@ -1,9 +1,11 @@
 package com.example.foodification;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-
+import android.content.Context;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,7 @@ public class SignIn extends Fragment {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString();
 
+
                 // Input validation: Check if email and password are not empty
                 if (email.isEmpty()) {
                     emailEditText.setError("Email is required.");
@@ -60,7 +63,10 @@ public class SignIn extends Fragment {
                                 Log.d("SignIn","Success");
                                 Intent myIntent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                                 getActivity().startActivity(myIntent);
-
+                                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("global_variable_key", email);
+                                editor.apply();
                                 myIntent.putExtra("USER_EMAIL", email);
                                 startActivity(myIntent);
 
