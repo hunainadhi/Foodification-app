@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_page"
-    android:layout_width="411dp"
-    android:layout_height="891dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="top"
     android:clipToOutline="true">
 
@@ -140,7 +142,7 @@
         android:layout_height="23dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="322dp"
+        android:layout_marginTop="300dp"
         android:text="@string/get_started"
         android:textAppearance="@style/get_started"
         android:gravity="top"
@@ -153,7 +155,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="119dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="329dp"
+        android:layout_marginTop="310dp"
 
         android:src="@drawable/ellipse"
         />
@@ -164,7 +166,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="-22dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="334dp"
+        android:layout_marginTop="310dp"
         android:background="@drawable/line_2"
         />
 
@@ -175,7 +177,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="334dp"
+        android:layout_marginTop="310dp"
         android:background="@drawable/line_2" />
 
     <ImageView
@@ -185,7 +187,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="275dp"
-        android:layout_marginTop="329dp"
+        android:layout_marginTop="310dp"
         android:src="@drawable/ellipse" />
 
     <GridLayout
@@ -589,22 +591,8 @@
 
     </GridLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/flFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
