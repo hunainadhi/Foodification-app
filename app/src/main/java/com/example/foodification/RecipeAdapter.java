@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -18,19 +20,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private List<Recipe> recipeList;
     private Context context;
 
-    // Constructor
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
     }
-    public List<Recipe> getRecipeList() {
-        return recipeList;
-    }
 
-    // ViewHolder class
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeTitle, prepTime, totalTime;
         public Button openButton;
+        public ImageView recipeImage;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -38,6 +36,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             prepTime = itemView.findViewById(R.id.prepTime);
             totalTime = itemView.findViewById(R.id.totalTime);
             openButton = itemView.findViewById(R.id.button1);
+            recipeImage = itemView.findViewById(R.id.recipeImage);
         }
     }
 
@@ -53,21 +52,28 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipe = recipeList.get(position);
 
         holder.recipeTitle.setText(recipe.getName());
-        holder.prepTime.setText(String.format("Prep time: %s", recipe.getPrepTime()));
-        holder.totalTime.setText(String.format("Total time: %s", recipe.getTotalTime()));
 
-        // Here we use the 'position' parameter to get the current item's position
+        if (recipe.getPrepTime() != null && !recipe.getPrepTime().isEmpty()) {
+            holder.prepTime.setText(String.format("Prep time: %s", recipe.getPrepTime()));
+        } else {
+            holder.prepTime.setText("Prep time: N/A");
+        }
+
+        if (recipe.getTotalTime() != null && !recipe.getTotalTime().isEmpty()) {
+            holder.totalTime.setText(String.format("Total time: %s", recipe.getTotalTime()));
+        } else {
+            holder.totalTime.setText("Total time: N/A");
+        }
+
+        String imageUrl = recipe.getImage();
+        Picasso.get().load(imageUrl).into(holder.recipeImage);
+
         holder.openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent detailIntent = new Intent(context, RecipeDetailActivity.class);
-
-                // Make sure Recipe class implements Serializable or Parcelable
                 detailIntent.putExtra("RecipeData", recipe);
-
-                // Flag is needed if you're starting an activity from outside of an activity context
                 detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                 context.startActivity(detailIntent);
             }
         });
@@ -77,5 +83,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public int getItemCount() {
         return recipeList == null ? 0 : recipeList.size();
     }
-}
 
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+        notifyDataSetChanged();
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+}
