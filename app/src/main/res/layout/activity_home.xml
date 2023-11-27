@@ -192,7 +192,7 @@
 
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/rectangle_8"
@@ -201,7 +201,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="377dp"
+            android:layout_marginTop="337dp"
             android:background="@drawable/rectangle_8"
             android:elevation="4dp" />
 
@@ -214,11 +214,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="39dp"
-            android:layout_marginTop="394dp"
+            android:layout_marginTop="354dp"
             android:gravity="top"
             android:text="@string/inventory"
             android:textAppearance="@style/inventory"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <TextView
             android:id="@+id/your_list_o"
@@ -229,7 +229,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="39dp"
-            android:layout_marginTop="424dp"
+            android:layout_marginTop="384dp"
             android:gravity="top"
             android:text="@string/your_list_o"
             android:textAppearance="@style/your_list_o"
@@ -244,9 +244,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="69dp"
-            android:layout_marginTop="455dp"
+            android:layout_marginTop="415dp"
             android:background="@drawable/ellipse_4"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/beetroot1"
@@ -257,7 +257,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="55dp"
-            android:layout_marginTop="440.77dp"
+            android:layout_marginTop="400.77dp"
             android:background="@drawable/beetroot"
             android:translationZ="10dp" />
 
@@ -270,7 +270,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="150dp"
-            android:layout_marginTop="510dp"
+            android:layout_marginTop="470dp"
             android:background="@drawable/beetroot"
             android:rotation="90"
             android:translationZ="10dp" />
@@ -282,9 +282,9 @@
             android:layout_row="0"
             android:layout_column="0"
             android:layout_marginStart="74.02dp"
-            android:layout_marginTop="425dp"
+            android:layout_marginTop="385dp"
             android:background="@drawable/carrot"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/carrot2"
@@ -295,7 +295,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="81.56dp"
-            android:layout_marginTop="515.04dp"
+            android:layout_marginTop="475.04dp"
             android:background="@drawable/carrot"
             android:rotation="180"
             android:rotationX="180"
@@ -310,9 +310,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="472dp"
+            android:layout_marginTop="442dp"
             android:background="@drawable/eggplant"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/broccoli"
@@ -323,9 +323,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="102dp"
-            android:layout_marginTop="465dp"
+            android:layout_marginTop="435dp"
             android:background="@drawable/broccoli"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/broccoli2"
@@ -336,7 +336,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="155.84dp"
-            android:layout_marginTop="460.71dp"
+            android:layout_marginTop="430.71dp"
             android:background="@drawable/broccoli"
             android:rotation="135"
             android:translationZ="10dp" />
@@ -350,9 +350,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="163.95dp"
-            android:layout_marginTop="475.65dp"
+            android:layout_marginTop="445.65dp"
             android:background="@drawable/eggplant"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/redpep"
@@ -363,9 +363,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="450dp"
+            android:layout_marginTop="420dp"
             android:background="@drawable/redpep"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/rectangle_9"
@@ -376,10 +376,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="377dp"
+            android:layout_marginTop="337dp"
             android:background="@drawable/rectangle_9"
-            android:elevation="4dp"
-            />
+            android:elevation="4dp" />
 
         <TextView
             android:id="@+id/my_recipes"
@@ -390,7 +389,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="394dp"
+            android:layout_marginTop="354dp"
             android:gravity="top"
             android:text="@string/my_recipes"
             android:textAppearance="@style/my_recipes"
@@ -405,10 +404,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="456dp"
-            android:translationZ="10dp"
+            android:layout_marginTop="416dp"
             android:src="@drawable/ellipse_5"
-            />
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/food_platw4"
@@ -419,9 +417,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="48dp"
-            android:layout_marginTop="425dp"
+            android:layout_marginTop="385dp"
             android:background="@drawable/food_plate"
-            android:translationZ="11dp"/>
+            android:translationZ="11dp" />
 
         <TextView
             android:id="@+id/generate_re"
@@ -432,11 +430,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="424dp"
+            android:layout_marginTop="384dp"
             android:gravity="top"
             android:text="@string/generate_re"
             android:textAppearance="@style/generate_re"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <View
             android:id="@+id/rectangle_1"
@@ -447,7 +445,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="570dp"
+            android:layout_marginTop="530dp"
             android:background="@drawable/rectangle_9"
             android:elevation="4dp" />
 
@@ -460,11 +458,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="39dp"
-            android:layout_marginTop="587dp"
+            android:layout_marginTop="547dp"
             android:gravity="top"
             android:text="@string/my_grocery"
             android:textAppearance="@style/my_grocery"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <TextView
             android:id="@+id/list_of_thi"
@@ -475,11 +473,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="39dp"
-            android:layout_marginTop="617dp"
+            android:layout_marginTop="577dp"
             android:gravity="top"
             android:text="@string/list_of_thi"
             android:textAppearance="@style/list_of_thi"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <ImageView
             android:id="@+id/ellipse_6"
@@ -490,7 +488,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="650dp"
+            android:layout_marginTop="610dp"
             android:src="@drawable/ellipse_5"
             android:translationZ="10dp" />
 
@@ -503,7 +501,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="65dp"
-            android:layout_marginTop="670dp"
+            android:layout_marginTop="630dp"
             android:background="@drawable/fruits_1"
             android:translationZ="13dp" />
 
@@ -516,9 +514,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="95dp"
-            android:layout_marginTop="626dp"
+            android:layout_marginTop="586dp"
             android:background="@drawable/list_1"
-            android:translationZ="11dp"/>
+            android:translationZ="11dp" />
 
         <View
             android:id="@+id/rectangle_4"
@@ -529,7 +527,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="570dp"
+            android:layout_marginTop="530dp"
             android:background="@drawable/rectangle_8"
             android:elevation="4dp" />
 
@@ -542,11 +540,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="587dp"
+            android:layout_marginTop="547dp"
             android:gravity="top"
             android:text="@string/explore"
             android:textAppearance="@style/explore"
-            android:translationZ="10dp"/>
+            android:translationZ="10dp" />
 
         <TextView
             android:id="@+id/generate_ne"
@@ -557,7 +555,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="610dp"
+            android:layout_marginTop="570dp"
             android:gravity="top"
             android:text="@string/generate_ne"
             android:textAppearance="@style/generate_ne"
@@ -572,7 +570,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="655dp"
+            android:layout_marginTop="615dp"
             android:background="@drawable/ellipse_4"
             android:translationZ="10dp" />
 
@@ -585,12 +583,12 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="629.49dp"
+            android:layout_marginTop="589.49dp"
             android:background="@drawable/mix_1"
             android:translationZ="10dp" />
 
     </GridLayout>
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
 <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
