@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 public class Recipe implements Serializable {
 
-    // Member variables representing the details of a recipe
+    private String id;
+    private String image;
     private String name;
     private String prepTime;
     private String totalTime;
     private String ingredients;
     private String instructions;
 
-    // Constructor that accepts parameters to initialize the member variables
-    public Recipe(String name, String prepTime, String totalTime, String ingredients, String instructions) {
+    public Recipe(String id, String image, String name, String prepTime, String totalTime, String ingredients, String instructions) {
+        this.id = id;
+        this.image = image;
         this.name = name;
         this.prepTime = prepTime;
         this.totalTime = totalTime;
@@ -20,7 +22,21 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
     }
 
-    // Getters and setters for each member variable
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getName() {
         return name;
