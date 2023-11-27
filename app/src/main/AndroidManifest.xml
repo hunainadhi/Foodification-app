@@ -16,9 +16,6 @@
             android:name=".BaseActivity"
             android:exported="true" />
         <activity
-            android:name=".UserInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".FirstActivity"
             android:exported="true">
             <intent-filter>
@@ -28,23 +25,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RecipePage"
-            android:exported="false" />
-        <activity
-            android:name=".Inventory"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="true" />
-        <activity
             android:name=".RecipeDetailActivity"
             android:exported="false"
-            android:label="@string/title_activity_recipe_detail"
-            android:parentActivityName=".RecipePage"> <!-- Specify the parent activity -->
-            <!-- meta-data element for parent activity support on Android 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RecipePage" />
+            android:label="@string/title_activity_recipe_detail">
         </activity>
 
         <meta-data
