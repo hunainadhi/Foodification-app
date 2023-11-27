@@ -145,7 +145,7 @@ public class SignIn extends Fragment {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Log.d("SignIn","Success");
-                        Intent myIntent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                        Intent myIntent = new Intent(getActivity().getApplicationContext(), BaseActivity.class);
                         getActivity().startActivity(myIntent);
                         // Sign-in was successful; do something with the user
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
