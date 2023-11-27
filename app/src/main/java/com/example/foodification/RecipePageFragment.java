@@ -1,4 +1,6 @@
 package com.example.foodification;
+import static android.content.Intent.getIntent;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +13,27 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipePageFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
+    private List<Recipe> recipeList = new ArrayList<>();
+    String recipesJson;
+
+    public RecipePageFragment(String recipesJson) {
+        this.recipesJson=recipesJson;
+    }
+
+    public RecipePageFragment() {
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,34 +48,24 @@ public class RecipePageFragment extends Fragment {
         recyclerView.setAdapter(recipeAdapter);
 
         // Prepare data for the RecyclerView
-        prepareRecipeData(); // Now your adapter is initialized before this call
+        fetchRecipesFromIntent(); // Now your adapter is initialized before this call
 
         return view;
+    }
+    private void fetchRecipesFromIntent() {
+        if (recipesJson != null) {
+            Type listType = new TypeToken<List<Recipe>>(){}.getType();
+            recipeList = new Gson().fromJson(recipesJson, listType);
+            updateRecipeData();
+        }
     }
 
     // This method creates a list of static recipes
     @SuppressLint("NotifyDataSetChanged")
-    private void prepareRecipeData() {
-        // Creating a static list of recipes with dummy data
-        Recipe recipe1 = new Recipe("Spaghetti Carbonara", "10 mins", "30 mins",
-                "Spaghetti, eggs, bacon, Parmesan cheese, garlic, salt, pepper",
-                "Cook pasta, fry bacon until crisp, beat eggs with cheese and season, combine all and serve hot.");
-
-        Recipe recipe2 = new Recipe("Classic Chicken Salad", "15 mins", "15 mins",
-                "Chicken, lettuce, boiled eggs, mayonnaise, mustard, salt, pepper",
-                "Mix chopped boiled chicken with other ingredients, lay on a bed of lettuce, serve chilled.");
-
-        Recipe recipe3 = new Recipe("Chocolate Chip Cookies", "15 mins", "45 mins",
-                "Flour, baking soda, butter, sugar, brown sugar, vanilla extract, eggs, chocolate chips",
-                "Combine ingredients, form into balls, place on baking sheet, and bake until golden brown.");
-
-        // You can directly update the data in your adapter.
-        recipeAdapter.getRecipeList().add(recipe1);
-        recipeAdapter.getRecipeList().add(recipe2);
-        recipeAdapter.getRecipeList().add(recipe3);
-
-        // Notify the adapter that the data has changed
-        recipeAdapter.notifyDataSetChanged();
-    }
+    private void updateRecipeData() {
+            // Clear the adapter and add the updated recipe list
+            recipeAdapter.setRecipeList(recipeList);
+            recipeAdapter.notifyDataSetChanged();
+        }
 }
 

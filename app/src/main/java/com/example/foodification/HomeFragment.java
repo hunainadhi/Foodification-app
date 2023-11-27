@@ -1,5 +1,8 @@
 package com.example.foodification;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,10 +27,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, databaseReference;
+    private String email, safeEmail;
+    private StringBuilder ingredientsStringBuilder;
+    private String allIngredientNames;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +49,42 @@ public class HomeFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String userEmail = preferences.getString("global_variable_key", "default_value");
+
+        FirebaseApp.initializeApp(getContext());
+
+        safeEmail = userEmail.replace('.', ',')
+                .replace('#', '-')
+                .replace('$', '+')
+                .replace('[', '(')
+                .replace(']', ')');
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(safeEmail)
+                .child("ingredients");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ingredientsStringBuilder = new StringBuilder();
+                    for (DataSnapshot ingredientSnapshot : dataSnapshot.getChildren()) {
+                        String ingredientName = ingredientSnapshot.child("name").getValue(String.class);
+                        if (ingredientName != null) {
+                            ingredientsStringBuilder.append(ingredientName).append(", ");
+                        }
+                    }
+
+                    allIngredientNames = ingredientsStringBuilder.toString().replaceAll(", $", "");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
 
         // Call the method to fetch and display the user's name
         fetchAndDisplayUserName(view);
@@ -43,13 +98,15 @@ public class HomeFragment extends Fragment {
         View RecView = view.findViewById(R.id.rectangle_9);
         RecView.setOnClickListener(v -> {
             // Replace startActivity with fragment transaction
-            replaceFragment(new RecipePageFragment());
+            fetchRecipesAndStartRecipePage();
+            //replaceFragment(new RecipePageFragment());
         });
 
         View ExpView = view.findViewById(R.id.rectangle_4);
         ExpView.setOnClickListener(v -> {
             // Replace startActivity with fragment transaction
-            replaceFragment(new RecipePageFragment());
+            fetchRecipesAndStartRecipePage();
+            //(new RecipePageFragment());
         });
 
         View GrocView = view.findViewById(R.id.rectangle_1);
@@ -59,6 +116,52 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+    private void fetchRecipesAndStartRecipePage() {
+        String ingredients = allIngredientNames;
+        String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
+        String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your Spoonacular API key
+
+        String url = apiUrl + "?ingredients=" + ingredients + "&apiKey=" + apiKey;
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            List<Recipe> recipes = new ArrayList<>();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject recipeObject = response.getJSONObject(i);
+                                String id = recipeObject.getString("id");
+                                String name = recipeObject.getString("title");
+                                String image = recipeObject.getString("image");
+
+                                // Create a Recipe object and add it to the list
+                                Recipe recipe = new Recipe(id, image, name, "", "", "", "");
+                                recipes.add(recipe);
+                            }
+
+                            // Convert the list of recipes to JSON
+                            String recipesJson = new Gson().toJson(recipes);
+
+                            replaceFragment(new RecipePageFragment(recipesJson));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Handle JSON parsing error
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
     }
 
     private void fetchAndDisplayUserName(View view) {
