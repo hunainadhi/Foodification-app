@@ -1,14 +1,12 @@
 package com.example.foodification;
-
-import static android.content.ContentValues.TAG;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Inventory extends AppCompatActivity {
+public class InventoryFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private RecyclerView ingredientList;
@@ -39,14 +37,13 @@ public class Inventory extends AppCompatActivity {
     private IngredientAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_inventory, container, false);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String email = preferences.getString("global_variable_key", "default_value");
 
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(requireContext());
 
         safeEmail = email.replace('.', ',')
                 .replace('#', '-')
@@ -58,11 +55,11 @@ public class Inventory extends AppCompatActivity {
                 .child(safeEmail)
                 .child("ingredients");
 
-        FloatingActionButton addIngredientButton = findViewById(R.id.addIngredientButton);
-        ingredientList = findViewById(R.id.ingredientList);
-        Button backbtn = findViewById(R.id.backButton);
+        FloatingActionButton addIngredientButton = view.findViewById(R.id.addIngredientButton);
+        ingredientList = view.findViewById(R.id.ingredientList);
+        Button backbtn = view.findViewById(R.id.backButton);
 
-        adapter = new IngredientAdapter(this, new ArrayList<Ingredient>(), new IngredientAdapter.OnItemClickListener() {
+        adapter = new IngredientAdapter(requireContext(), new ArrayList<Ingredient>(), new IngredientAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(final int position) {
                 // Handle the delete action here
@@ -80,7 +77,7 @@ public class Inventory extends AppCompatActivity {
         });
 
         ingredientList.setAdapter(adapter);
-        ingredientList.setLayoutManager(new LinearLayoutManager(this));
+        ingredientList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         updateInventory();
 
@@ -94,7 +91,7 @@ public class Inventory extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                requireActivity().finish();
             }
         });
 
@@ -106,13 +103,16 @@ public class Inventory extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "loadPost:onCancelled", error.toException());
+                // Handle errors
+                // Log.w(TAG, "loadPost:onCancelled", error.toException());
             }
         });
+
+        return view;
     }
 
     private void showDeleteConfirmationDialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Delete Ingredient");
         builder.setMessage("Are you sure you want to delete this ingredient?");
 
@@ -137,12 +137,12 @@ public class Inventory extends AppCompatActivity {
         Ingredient ingredient = adapter.getIngredient(position);
         if (ingredient != null) {
             databaseReference.child(ingredient.getId()).removeValue();
-            Toast.makeText(this, "Ingredient deleted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Ingredient deleted!", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void showModifyDialog(final Ingredient ingredient) {
-        final Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.dialog_add_ingredient);
 
         final EditText nameEditText = dialog.findViewById(R.id.nameEditText);
@@ -153,8 +153,8 @@ public class Inventory extends AppCompatActivity {
         nameEditText.setText(ingredient.getName());
         quantityEditText.setText(String.valueOf(ingredient.getQuantity()));
 
-        String[] units = new String[] {"Select Unit", "kg", "g", "lbs", "oz", "ml", "l", "cup"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
+        String[] units = new String[]{"Select Unit", "kg", "g", "lbs", "oz", "ml", "l", "cup"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, units);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitSpinner.setAdapter(spinnerAdapter);
 
@@ -179,10 +179,10 @@ public class Inventory extends AppCompatActivity {
 
                     databaseReference.child(ingredient.getId()).setValue(ingredient);
 
-                    Toast.makeText(Inventory.this, "Ingredient modified!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Ingredient modified!", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 } else {
-                    Toast.makeText(Inventory.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -191,7 +191,7 @@ public class Inventory extends AppCompatActivity {
     }
 
     private void showAddIngredientDialog() {
-        final Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.dialog_add_ingredient);
 
         final EditText nameEditText = dialog.findViewById(R.id.nameEditText);
@@ -199,8 +199,8 @@ public class Inventory extends AppCompatActivity {
         final Spinner unitSpinner = dialog.findViewById(R.id.unitSpinner);
         Button addButton = dialog.findViewById(R.id.addButton);
 
-        String[] units = new String[] {"Select Unit", "Kg", "g", "Lbs", "Oz", "Ml", "L", "Cup"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
+        String[] units = new String[]{"Select Unit", "Kg", "g", "Lbs", "Oz", "Ml", "L", "Cup"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, units);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitSpinner.setAdapter(spinnerAdapter);
 
@@ -219,11 +219,11 @@ public class Inventory extends AppCompatActivity {
 
                     if (ingredientId != null) {
                         databaseReference.child(ingredientId).setValue(ingredient);
-                        Toast.makeText(Inventory.this, "Ingredient added!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 } else {
-                    Toast.makeText(Inventory.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -249,3 +249,4 @@ public class Inventory extends AppCompatActivity {
         });
     }
 }
+

@@ -1,21 +1,24 @@
 package com.example.foodification;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,8 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
-
+public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase, databaseReference;
     private String email, safeEmail;
@@ -42,16 +44,15 @@ public class HomeActivity extends AppCompatActivity {
     private String allIngredientNames;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_home, container, false);
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         String userEmail = preferences.getString("global_variable_key", "default_value");
 
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(getContext());
 
         safeEmail = userEmail.replace('.', ',')
                 .replace('#', '-')
@@ -85,31 +86,37 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        fetchAndDisplayUserName();
-        View invView = findViewById(R.id.rectangle_8);
-        invView.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, Inventory.class);
-            intent.putExtra("USER_EMAIL", userEmail); // Use userEmail directly
-            startActivity(intent);
+        // Call the method to fetch and display the user's name
+        fetchAndDisplayUserName(view);
+
+        View invView = view.findViewById(R.id.rectangle_8);
+        invView.setOnClickListener(v -> {
+            // Replace startActivity with fragment transaction
+            replaceFragment(new InventoryFragment());
         });
 
-        View RecView = findViewById(R.id.rectangle_9);
-        RecView.setOnClickListener(view -> {
+        View RecView = view.findViewById(R.id.rectangle_9);
+        RecView.setOnClickListener(v -> {
+            // Replace startActivity with fragment transaction
             fetchRecipesAndStartRecipePage();
+            //replaceFragment(new RecipePageFragment());
         });
 
-        View ExpView = findViewById(R.id.rectangle_4);
-        ExpView.setOnClickListener(view -> {
+        View ExpView = view.findViewById(R.id.rectangle_4);
+        ExpView.setOnClickListener(v -> {
+            // Replace startActivity with fragment transaction
             fetchRecipesAndStartRecipePage();
+            //(new RecipePageFragment());
         });
 
-        View GrocView = findViewById(R.id.rectangle_1);
-        GrocView.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, Inventory.class);
-            startActivity(intent);
+        View GrocView = view.findViewById(R.id.rectangle_1);
+        GrocView.setOnClickListener(v -> {
+            // Replace startActivity with fragment transaction
+            replaceFragment(new InventoryFragment());
         });
+
+        return view;
     }
-
     private void fetchRecipesAndStartRecipePage() {
         String ingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
@@ -139,9 +146,7 @@ public class HomeActivity extends AppCompatActivity {
                             // Convert the list of recipes to JSON
                             String recipesJson = new Gson().toJson(recipes);
 
-                            Intent intent = new Intent(HomeActivity.this, RecipePage.class);
-                            intent.putExtra("RECIPES", recipesJson);
-                            startActivity(intent);
+                            replaceFragment(new RecipePageFragment(recipesJson));
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Handle JSON parsing error
@@ -156,10 +161,10 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
         // Add the request to the RequestQueue
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
     }
 
-    private void fetchAndDisplayUserName() {
+    private void fetchAndDisplayUserName(View view) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
@@ -171,9 +176,12 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+                        // Assuming you have a "name" field in your user node
                         String userName = dataSnapshot.child("name").getValue(String.class);
 
-                        TextView userNameTextView = findViewById(R.id.welcome);
+                        // Now you have the user's name, you can use it as needed
+                        // For example, display it in a TextView
+                        TextView userNameTextView = view.findViewById(R.id.welcome);
                         userNameTextView.setText("Hi, " + userName + "!");
                     }
                 }
@@ -181,9 +189,19 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     // Handle errors
-                    Toast.makeText(HomeActivity.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
+
+    private void replaceFragment(Fragment fragment) {
+        // Replace the current fragment with the new one
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.homeFragmentContainer, fragment); // Use your fragment container ID
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
+
+
