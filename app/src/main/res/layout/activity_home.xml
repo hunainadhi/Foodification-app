@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_page"
@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:clipToOutline="true">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
@@ -605,5 +607,6 @@
 <!--            app:menu="@menu/bottom_nav_menu"/>-->
 
 <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>
