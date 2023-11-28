@@ -152,6 +152,7 @@ public class SignIn extends Fragment {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("global_variable_key", email);
                         editor.apply();
+                        getActivity().finish();
                     } else {
                         // Sign-in failed; display an error message to the user
                         passwordEditText.setError("Invalid email or password.");
@@ -192,5 +193,6 @@ public class SignIn extends Fragment {
         SharedPreferences prefs = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.contains(PREF_EMAIL) && prefs.contains(PREF_PASSWORD);
     }
+
 
 }

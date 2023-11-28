@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -49,7 +51,6 @@ public class FirstActivity extends AppCompatActivity {
     public void addFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -58,5 +59,15 @@ public class FirstActivity extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // The back stack is empty, finish the activity
+            finish();
+        } else {
+            // The back stack is not empty, perform the default back action
+            super.onBackPressed();
+        }
     }
 }

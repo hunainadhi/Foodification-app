@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,13 +52,21 @@ public class BaseActivity extends AppCompatActivity {
     public void addFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.homeFragmentContainer, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.homeFragmentContainer, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
+    }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // The back stack is empty, finish the activity
+            finish();
+        } else {
+            // The back stack is not empty, perform the default back action
+            super.onBackPressed();
+        }
     }
 }

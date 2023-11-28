@@ -69,4 +69,5 @@
         <item name="boxBackgroundColor">@android:color/transparent</item>
         <!-- Customize other TextInputLayout attributes as needed -->
     </style>
+
 </resources>
