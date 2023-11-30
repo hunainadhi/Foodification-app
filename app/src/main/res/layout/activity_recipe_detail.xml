@@ -18,7 +18,7 @@
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginBottom="8dp"
-            android:text="Recipe Title" />
+            android:text="@string/Recipe_Title" />
 
         <!-- Ingredients header -->
         <TextView
@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="4dp"
-            android:text="Ingredients" />
+            android:text="@string/Ingredients" />
 
         <!-- Ingredients content -->
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginBottom="8dp"
-            android:text="Ingredients list" />
+            android:text="@string/Ingredients_list" />
 
         <!-- Instructions header -->
         <TextView
@@ -45,7 +45,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="4dp"
-            android:text="Instructions" />
+            android:text="@string/Instructions" />
 
         <!-- Instructions content -->
         <TextView
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="Instructions list" />
+            android:text="@string/Instructions_list" />
 
     </LinearLayout>
 </ScrollView>

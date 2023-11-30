@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Foodification</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="Sign_up">Sign Up</string>
     <string name="Welcome">Hi, User</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="try_our_new">Try our new recipes!</string>
@@ -17,4 +19,32 @@
     <string name="inventory_string">Inventory</string>
     <string name="title_activity_recipe_detail">Recipe Details</string>
     <string name="Open">Open</string>
+    <string name="Recipe_Title">Recipe Title</string>
+    <string name="Ingredients">Ingredients</string>
+    <string name="Ingredients_list">Ingredients list</string>
+    <string name="Instructions">Instructions </string>
+    <string name="Instructions_list">Instructions list </string>
+    <string name="user_name">Name </string>
+    <string name="Edit_Profile">Edit Profile </string>
+    <string name="My_Favourites">My Favourites</string>
+    <string name="Account_Information">Account Information</string>
+    <string name="Help">Help</string>
+    <string name="Sign_Out">Sign Out</string>
+    <string name="Contact_Us">Contact Us</string>
+    <string name="TAC">Terms and Conditions</string>
+    <string name="Add">Add</string>
+    <string name="Welcome_to_Foodification">Welcome to Foodification</string>
+    <string name="exclamation1">Let’s get to know</string>
+    <string name="exclamation2">each other better!</string>
+    <string name="Remember_Me">Remember Me</string>
+    <string name="Forgot_Password">Forgot Password?</string>
+    <string name="Sign_in">Sign In</string>
+    <string name="Ingredient_Name">Ingredient Name</string>
+    <string name="Quantity">Quantity: </string>
+    <string name="Unit">Unit: </string>
+    <string name="Delete">Delete</string>
+    <string name="Modify">Modify</string>
+    <string name="Recipe_Name">Recipe Name</string>
+    <string name="tt">Total Time: </string>
+    <string name="pt">Prep Time: </string>
 </resources>

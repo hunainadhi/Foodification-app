@@ -34,7 +34,7 @@
             android:id="@+id/recipe_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe Name"
+            android:text="@string/Recipe_Name"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
@@ -42,7 +42,7 @@
             android:id="@+id/totalTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total time: "
+            android:text="@string/tt"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
             tools:ignore="HardcodedText" />
@@ -51,7 +51,7 @@
             android:id="@+id/prepTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prep Time: "
+            android:text="@string/pt"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
             tools:ignore="HardcodedText" />

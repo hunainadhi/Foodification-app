@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Ingredient Name"
+            android:text="@string/Ingredient_Name"
             android:textAppearance="@style/get_started" />
 
 
@@ -33,7 +33,7 @@
                 android:id="@+id/quantityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantity: "
+                android:text="@string/Quantity"
                 android:textAppearance="@style/get_started" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Unit: "
+                android:text="@string/Unit"
                 android:textAppearance="@style/get_started" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:id="@+id/deleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete"
+                    android:text="@string/Delete"
                     app:layout_constraintRight_toRightOf="parent"/>
 
                 <!-- Modify Button -->
@@ -59,8 +59,7 @@
                     android:id="@+id/modifyButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Modify"
-
+                    android:text="@string/Modify"
                     app:layout_constraintRight_toLeftOf="@id/deleteButton"
                     />
 
@@ -74,7 +73,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentTop="true"
-
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/lLayout"/>
 

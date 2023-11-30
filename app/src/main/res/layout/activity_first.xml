@@ -31,7 +31,7 @@
         android:textColor="@color/black"
         android:textStyle="italic"
         android:paddingBottom="20dp"
-        android:text="Don't have an account?" />
+        android:text="@string/dont_have_an_account" />
     <TextView
         android:id="@+id/toggleFragmentButton"
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_toRightOf="@id/toggleFragmentText"
         android:textColor="@color/white"
         android:paddingBottom="20dp"
-        android:text="Sign up" />
+        android:text="@string/Sign_up" />
 
     <!--<Button
         android:id="@+id/toggleFragmentButton"

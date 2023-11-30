@@ -29,9 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-
         android:hint="Unit"
-
         android:dropDownHeight="wrap_content"
         android:dropDownWidth="match_parent" />
 
@@ -42,6 +40,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:background="#01AED8"
-        android:text="Add"
+        android:text="@string/Add"
         tools:ignore="TextContrastCheck" />
 </LinearLayout>

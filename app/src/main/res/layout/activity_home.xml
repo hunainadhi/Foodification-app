@@ -192,405 +192,405 @@
         android:layout_marginTop="310dp"
         android:src="@drawable/ellipse" />
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/rectangle_8"
-            android:layout_width="163dp"
-            android:layout_height="173dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="337dp"
-            android:background="@drawable/rectangle_8"
-            android:elevation="4dp" />
-
-        <TextView
-            android:id="@+id/inventory"
-            android:layout_width="96dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="354dp"
-            android:gravity="top"
-            android:text="@string/inventory"
-            android:textAppearance="@style/inventory"
-            android:translationZ="10dp" />
-
-        <TextView
-            android:id="@+id/your_list_o"
+        <GridLayout
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="384dp"
-            android:gravity="top"
-            android:text="@string/your_list_o"
-            android:textAppearance="@style/your_list_o"
-            android:translationZ="10dp" />
+            android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/ellipse_4"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="69dp"
-            android:layout_marginTop="415dp"
-            android:background="@drawable/ellipse_4"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/rectangle_8"
+                android:layout_width="163dp"
+                android:layout_height="173dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="337dp"
+                android:background="@drawable/rectangle_8"
+                android:elevation="4dp" />
 
-        <View
-            android:id="@+id/beetroot1"
-            android:layout_width="92.79dp"
-            android:layout_height="92.79dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="400.77dp"
-            android:background="@drawable/beetroot"
-            android:translationZ="10dp" />
+            <TextView
+                android:id="@+id/inventory"
+                android:layout_width="96dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="39dp"
+                android:layout_marginTop="354dp"
+                android:gravity="top"
+                android:text="@string/inventory"
+                android:textAppearance="@style/inventory"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/beetroot2"
-            android:layout_width="29.11dp"
-            android:layout_height="29.11dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="470dp"
-            android:background="@drawable/beetroot"
-            android:rotation="90"
-            android:translationZ="10dp" />
+            <TextView
+                android:id="@+id/your_list_o"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="39dp"
+                android:layout_marginTop="384dp"
+                android:gravity="top"
+                android:text="@string/your_list_o"
+                android:textAppearance="@style/your_list_o"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/carrot"
-            android:layout_width="92.79dp"
-            android:layout_height="92.79dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_marginStart="74.02dp"
-            android:layout_marginTop="385dp"
-            android:background="@drawable/carrot"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/ellipse_4"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="69dp"
+                android:layout_marginTop="415dp"
+                android:background="@drawable/ellipse_4"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/carrot2"
-            android:layout_width="28.67dp"
-            android:layout_height="28.67dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="81.56dp"
-            android:layout_marginTop="475.04dp"
-            android:background="@drawable/carrot"
-            android:rotation="180"
-            android:rotationX="180"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/beetroot1"
+                android:layout_width="92.79dp"
+                android:layout_height="92.79dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="400.77dp"
+                android:background="@drawable/beetroot"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/eggplant"
-            android:layout_width="92.79dp"
-            android:layout_height="92.79dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="442dp"
-            android:background="@drawable/eggplant"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/beetroot2"
+                android:layout_width="29.11dp"
+                android:layout_height="29.11dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="470dp"
+                android:background="@drawable/beetroot"
+                android:rotation="90"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/broccoli"
-            android:layout_width="93dp"
-            android:layout_height="92dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="102dp"
-            android:layout_marginTop="435dp"
-            android:background="@drawable/broccoli"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/carrot"
+                android:layout_width="92.79dp"
+                android:layout_height="92.79dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginStart="74.02dp"
+                android:layout_marginTop="385dp"
+                android:background="@drawable/carrot"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/broccoli2"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="155.84dp"
-            android:layout_marginTop="430.71dp"
-            android:background="@drawable/broccoli"
-            android:rotation="135"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/carrot2"
+                android:layout_width="28.67dp"
+                android:layout_height="28.67dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="81.56dp"
+                android:layout_marginTop="475.04dp"
+                android:background="@drawable/carrot"
+                android:rotation="180"
+                android:rotationX="180"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/eggplant2"
-            android:layout_width="25dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="163.95dp"
-            android:layout_marginTop="445.65dp"
-            android:background="@drawable/eggplant"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/eggplant"
+                android:layout_width="92.79dp"
+                android:layout_height="92.79dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="442dp"
+                android:background="@drawable/eggplant"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/redpep"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="125dp"
-            android:layout_marginTop="420dp"
-            android:background="@drawable/redpep"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/broccoli"
+                android:layout_width="93dp"
+                android:layout_height="92dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="102dp"
+                android:layout_marginTop="435dp"
+                android:background="@drawable/broccoli"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/rectangle_9"
-            android:layout_width="163dp"
-            android:layout_height="173dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="337dp"
-            android:background="@drawable/rectangle_9"
-            android:elevation="4dp" />
+            <View
+                android:id="@+id/broccoli2"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="155.84dp"
+                android:layout_marginTop="430.71dp"
+                android:background="@drawable/broccoli"
+                android:rotation="135"
+                android:translationZ="10dp" />
 
-        <TextView
-            android:id="@+id/my_recipes"
-            android:layout_width="114dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="354dp"
-            android:gravity="top"
-            android:text="@string/my_recipes"
-            android:textAppearance="@style/my_recipes"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/eggplant2"
+                android:layout_width="25dp"
+                android:layout_height="45dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="163.95dp"
+                android:layout_marginTop="445.65dp"
+                android:background="@drawable/eggplant"
+                android:translationZ="10dp" />
 
-        <ImageView
-            android:id="@+id/ellipse_5"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="416dp"
-            android:src="@drawable/ellipse_5"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/redpep"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="420dp"
+                android:background="@drawable/redpep"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/food_platw4"
-            android:layout_width="113dp"
-            android:layout_height="134dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="385dp"
-            android:background="@drawable/food_plate"
-            android:translationZ="11dp" />
+            <View
+                android:id="@+id/rectangle_9"
+                android:layout_width="163dp"
+                android:layout_height="173dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="337dp"
+                android:background="@drawable/rectangle_9"
+                android:elevation="4dp" />
 
-        <TextView
-            android:id="@+id/generate_re"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="384dp"
-            android:gravity="top"
-            android:text="@string/generate_re"
-            android:textAppearance="@style/generate_re"
-            android:translationZ="10dp" />
+            <TextView
+                android:id="@+id/my_recipes"
+                android:layout_width="114dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="354dp"
+                android:gravity="top"
+                android:text="@string/my_recipes"
+                android:textAppearance="@style/my_recipes"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/rectangle_1"
-            android:layout_width="163dp"
-            android:layout_height="173dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="530dp"
-            android:background="@drawable/rectangle_9"
-            android:elevation="4dp" />
+            <ImageView
+                android:id="@+id/ellipse_5"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="416dp"
+                android:src="@drawable/ellipse_5"
+                android:translationZ="10dp" />
 
-        <TextView
-            android:id="@+id/my_grocery"
-            android:layout_width="115dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="547dp"
-            android:gravity="top"
-            android:text="@string/my_grocery"
-            android:textAppearance="@style/my_grocery"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/food_platw4"
+                android:layout_width="113dp"
+                android:layout_height="134dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="48dp"
+                android:layout_marginTop="385dp"
+                android:background="@drawable/food_plate"
+                android:translationZ="11dp" />
 
-        <TextView
-            android:id="@+id/list_of_thi"
-            android:layout_width="104dp"
-            android:layout_height="15dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="577dp"
-            android:gravity="top"
-            android:text="@string/list_of_thi"
-            android:textAppearance="@style/list_of_thi"
-            android:translationZ="10dp" />
+            <TextView
+                android:id="@+id/generate_re"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="384dp"
+                android:gravity="top"
+                android:text="@string/generate_re"
+                android:textAppearance="@style/generate_re"
+                android:translationZ="10dp" />
 
-        <ImageView
-            android:id="@+id/ellipse_6"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="610dp"
-            android:src="@drawable/ellipse_5"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/rectangle_1"
+                android:layout_width="163dp"
+                android:layout_height="173dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="530dp"
+                android:background="@drawable/rectangle_9"
+                android:elevation="4dp" />
 
-        <ImageView
-            android:id="@+id/fruits_1"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="65dp"
-            android:layout_marginTop="630dp"
-            android:background="@drawable/fruits_1"
-            android:translationZ="13dp" />
+            <TextView
+                android:id="@+id/my_grocery"
+                android:layout_width="115dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="39dp"
+                android:layout_marginTop="547dp"
+                android:gravity="top"
+                android:text="@string/my_grocery"
+                android:textAppearance="@style/my_grocery"
+                android:translationZ="10dp" />
 
-        <ImageView
-            android:id="@+id/list_1"
-            android:layout_width="113dp"
-            android:layout_height="113dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="95dp"
-            android:layout_marginTop="586dp"
-            android:background="@drawable/list_1"
-            android:translationZ="11dp" />
+            <TextView
+                android:id="@+id/list_of_thi"
+                android:layout_width="104dp"
+                android:layout_height="15dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="39dp"
+                android:layout_marginTop="577dp"
+                android:gravity="top"
+                android:text="@string/list_of_thi"
+                android:textAppearance="@style/list_of_thi"
+                android:translationZ="10dp" />
 
-        <View
-            android:id="@+id/rectangle_4"
-            android:layout_width="163dp"
-            android:layout_height="173dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="530dp"
-            android:background="@drawable/rectangle_8"
-            android:elevation="4dp" />
+            <ImageView
+                android:id="@+id/ellipse_6"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="610dp"
+                android:src="@drawable/ellipse_5"
+                android:translationZ="10dp" />
 
-        <TextView
-            android:id="@+id/explore"
-            android:layout_width="75dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="547dp"
-            android:gravity="top"
-            android:text="@string/explore"
-            android:textAppearance="@style/explore"
-            android:translationZ="10dp" />
+            <ImageView
+                android:id="@+id/fruits_1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="630dp"
+                android:background="@drawable/fruits_1"
+                android:translationZ="13dp" />
 
-        <TextView
-            android:id="@+id/generate_ne"
-            android:layout_width="wrap_content"
-            android:layout_height="31dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="570dp"
-            android:gravity="top"
-            android:text="@string/generate_ne"
-            android:textAppearance="@style/generate_ne"
-            android:translationZ="10dp" />
+            <ImageView
+                android:id="@+id/list_1"
+                android:layout_width="113dp"
+                android:layout_height="113dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="95dp"
+                android:layout_marginTop="586dp"
+                android:background="@drawable/list_1"
+                android:translationZ="11dp" />
 
-        <View
-            android:id="@+id/ellipse_7"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="615dp"
-            android:background="@drawable/ellipse_4"
-            android:translationZ="10dp" />
+            <View
+                android:id="@+id/rectangle_4"
+                android:layout_width="163dp"
+                android:layout_height="173dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="530dp"
+                android:background="@drawable/rectangle_8"
+                android:elevation="4dp" />
 
-        <View
-            android:id="@+id/mix_1"
-            android:layout_width="150.67dp"
-            android:layout_height="150.67dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="589.49dp"
-            android:background="@drawable/mix_1"
-            android:translationZ="10dp" />
+            <TextView
+                android:id="@+id/explore"
+                android:layout_width="75dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="547dp"
+                android:gravity="top"
+                android:text="@string/explore"
+                android:textAppearance="@style/explore"
+                android:translationZ="10dp" />
 
-    </GridLayout>
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <TextView
+                android:id="@+id/generate_ne"
+                android:layout_width="wrap_content"
+                android:layout_height="31dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="570dp"
+                android:gravity="top"
+                android:text="@string/generate_ne"
+                android:textAppearance="@style/generate_ne"
+                android:translationZ="10dp" />
+
+            <View
+                android:id="@+id/ellipse_7"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="615dp"
+                android:background="@drawable/ellipse_4"
+                android:translationZ="10dp" />
+
+            <View
+                android:id="@+id/mix_1"
+                android:layout_width="150.67dp"
+                android:layout_height="150.67dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="589.49dp"
+                android:background="@drawable/mix_1"
+                android:translationZ="10dp" />
+
+        </GridLayout>
+        <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
 <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->

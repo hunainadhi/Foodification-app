@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:fontFamily="serif"
-        android:text="Name"
+        android:text="@string/user_name"
         android:textColor="#292A2A"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -58,7 +58,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:fontFamily="serif"
-        android:text="Edit Profile"
+        android:text="@string/Edit_Profile"
         android:textColor="#9C9D9F"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -111,7 +111,7 @@
 
                 android:layout_toRightOf="@id/heart"
                 android:fontFamily="serif"
-                android:text="My Favourites"
+                android:text="@string/My_Favourites"
                 android:textColor="#292A2A"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -167,7 +167,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_toRightOf="@id/heart1"
                 android:fontFamily="serif"
-                android:text="Account Information"
+                android:text="@string/Account_Information"
                 android:textColor="#292A2A"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -223,7 +223,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_toRightOf="@id/heart2"
                 android:fontFamily="serif"
-                android:text="Help"
+                android:text="@string/Help"
                 android:textColor="#292A2A"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -251,7 +251,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="37dp"
         android:fontFamily="serif"
-        android:text="Sign Out"
+        android:text="@string/Sign_Out"
         android:textColor="#01AED8"
         android:textFontWeight="600"
         android:textSize="18sp" />
@@ -264,7 +264,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="15dp"
         android:fontFamily="serif"
-        android:text="Contact Us"
+        android:text="@string/Contact_Us"
         android:textColor="#B3B4B6"
         android:textFontWeight="400"
         android:textSize="13sp" />
@@ -277,7 +277,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="12dp"
         android:fontFamily="serif"
-        android:text="Terms and Conditions*"
+        android:text="@string/TAC"
         android:textColor="#B3B4B6"
         android:textFontWeight="400"
         android:textSize="13sp" />
