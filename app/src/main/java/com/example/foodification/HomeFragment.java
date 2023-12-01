@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
         View GrocView = view.findViewById(R.id.rectangle_1);
         GrocView.setOnClickListener(v -> {
             // Replace startActivity with fragment transaction
-            replaceFragment(new InventoryFragment());
+            replaceFragment(new GroceryFragment());
         });
 
         return view;
