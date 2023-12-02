@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +53,7 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
         private TextView unitTextView;
         private Button deleteButton;
         private Button modifyButton;
+        private CheckBox groceryCheck;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,12 +62,14 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
             unitTextView = itemView.findViewById(R.id.unitTextView);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             modifyButton = itemView.findViewById(R.id.modifyButton);
+            groceryCheck = itemView.findViewById(R.id.groceryCheck);
         }
 
         public void bind(final Grocery grocery, final OnItemClickListener listener) {
             nameTextView.setText(grocery.getName());
             quantityTextView.setText(String.valueOf(grocery.getQuantity()));
             unitTextView.setText(grocery.getUnit());
+            groceryCheck.setChecked(grocery.getCheck());
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,12 +84,22 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
                     listener.onModifyClick(getAdapterPosition());
                 }
             });
+            groceryCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        // The checkbox is checked, call the private method
+                        listener.showOnCheck(getAdapterPosition(),isChecked);
+
+                }
+            });
         }
     }
 
     public interface OnItemClickListener {
         void onDeleteClick(int position);
         void onModifyClick(int position);
+        void showOnCheck(int position,Boolean isChecked);
     }
 
     // Setter method to update the ingredients list

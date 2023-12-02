@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class GroceryFragment extends Fragment {
 
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReferenceInv;
     private RecyclerView groceryList;
     private String email, safeEmail;
     private GroceryAdapter adapter;
@@ -54,8 +56,14 @@ public class GroceryFragment extends Fragment {
                 .getReference("users")
                 .child(safeEmail)
                 .child("grocery");
+        databaseReferenceInv = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(safeEmail)
+                .child("ingredients");
 
         FloatingActionButton addGroceryButton = view.findViewById(R.id.addGroceryButton);
+
+        FloatingActionButton refreshGroceryButton = view.findViewById(R.id.refreshGroceryButton);
         groceryList = view.findViewById(R.id.groceryList);
         Button backbtn = view.findViewById(R.id.backButton);
 
@@ -74,12 +82,25 @@ public class GroceryFragment extends Fragment {
                     showModifyDialog(grocery);
                 }
             }
+
+            public void showOnCheck(int position, Boolean isChecked){
+
+                Grocery grocery = adapter.getGrocery(position);
+                showAddCheckDialog(grocery,isChecked);
+            }
         });
 
         groceryList.setAdapter(adapter);
         groceryList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         updateGrocery();
+
+        refreshGroceryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDeleteDialog();
+            }
+        });
 
         addGroceryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +161,48 @@ public class GroceryFragment extends Fragment {
             Toast.makeText(requireContext(), "Grocery deleted!", Toast.LENGTH_SHORT).show();
         }
     }
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Delete Checked Items");
+        builder.setMessage("Are you sure you want to delete all checked grocery items?");
 
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteCheckedGroceries();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Cancel the deletion
+            }
+        });
+
+        builder.show();
+    }
+    private void deleteCheckedGroceries() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Grocery grocery = snapshot.getValue(Grocery.class);
+                    if (grocery != null && grocery.getCheck()) {
+                        // Delete the grocery item
+                        databaseReference.child(grocery.getId()).removeValue();
+                    }
+                }
+                Toast.makeText(requireContext(), "Checked groceries deleted!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
+                Toast.makeText(requireContext(), "Error deleting checked groceries", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void showModifyDialog(final Grocery grocery) {
         final Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.dialog_add_ingredient);
@@ -211,11 +273,12 @@ public class GroceryFragment extends Fragment {
                 String quantityStr = quantityEditText.getText().toString().trim();
                 String unit = unitSpinner.getSelectedItem().toString().trim();
 
+
                 if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty() && !unit.equalsIgnoreCase("Select Unit")) {
                     double quantity = Double.parseDouble(quantityStr);
 
                     String groceryId = databaseReference.push().getKey();
-                    Grocery grocery = new Grocery(groceryId, name, quantity, unit);
+                    Grocery grocery = new Grocery(groceryId, name, quantity, unit,false);
 
                     if (groceryId != null) {
                         databaseReference.child(groceryId).setValue(grocery);
@@ -229,6 +292,34 @@ public class GroceryFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+
+    private void showAddCheckDialog(final Grocery grocery,final Boolean isChecked) {
+
+
+
+        if (isChecked) {
+            // The checkbox is checked, perform the desired action
+            String name = grocery.getName();
+            Double quantity = grocery.getQuantity();
+            String unit = grocery.getUnit();
+            grocery.setCheck(true);
+            databaseReference.child(grocery.getId()).setValue(grocery);
+
+            String ingredientId = databaseReferenceInv.push().getKey();
+            Ingredient ingredient = new Ingredient(ingredientId, name, quantity, unit);
+
+            if (ingredientId != null) {
+                databaseReferenceInv.child(ingredientId).setValue(ingredient);
+                Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+
+
     }
 
     private void updateGrocery() {

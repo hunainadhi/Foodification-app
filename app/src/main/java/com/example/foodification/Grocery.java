@@ -6,6 +6,7 @@ public class Grocery {
     private String name;
     private double quantity;
     private String unit;
+    private Boolean check;
 
     public Grocery() {
         // Default constructor required by Firebase
@@ -13,13 +14,15 @@ public class Grocery {
         name = "";
         quantity = 0.0;
         unit = "";
+        check = false;
     }
 
-    public Grocery(String id, String name, double quantity, String unit) {
+    public Grocery(String id, String name, double quantity, String unit,Boolean check) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
+        this.check = check;
     }
 
     // Getter and setter methods for fields
@@ -53,5 +56,13 @@ public class Grocery {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
     }
 }

@@ -39,7 +39,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="30dp"
 
-        android:text="@string/inventory_string"
+        android:text="@string/inventory"
         android:textAppearance="@style/try_our_new"/>
 
         <!-- RecyclerView for displaying ingredients -->
