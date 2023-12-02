@@ -8,10 +8,13 @@
     android:viewportWidth="337"
     android:viewportHeight="133"
     >
+
     <group>
+
         <clip-path
             android:pathData="M10 0H327C332.523 0 337 4.47715 337 10V123C337 128.523 332.523 133 327 133H10C4.47715 133 0 128.523 0 123V10C0 4.47715 4.47715 0 10 0Z"
             />
+
         <group
             android:translateX="1.073"
             android:translateY="-28.099"
@@ -21,9 +24,13 @@
             android:scaleY="112.419"
             android:rotation="65.504"
             >
+
             <path
                 android:pathData="M0 0V133H337V0"
+                android:strokeColor="#000000"
+                android:strokeWidth="10"
                 >
+
                 <aapt:attr name="android:fillColor">
                     <gradient
                         android:type="linear"
