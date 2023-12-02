@@ -62,6 +62,8 @@ public class GroceryFragment extends Fragment {
                 .child("ingredients");
 
         FloatingActionButton addGroceryButton = view.findViewById(R.id.addGroceryButton);
+
+        FloatingActionButton refreshGroceryButton = view.findViewById(R.id.refreshGroceryButton);
         groceryList = view.findViewById(R.id.groceryList);
         Button backbtn = view.findViewById(R.id.backButton);
 
@@ -92,6 +94,13 @@ public class GroceryFragment extends Fragment {
         groceryList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         updateGrocery();
+
+        refreshGroceryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDeleteDialog();
+            }
+        });
 
         addGroceryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +161,48 @@ public class GroceryFragment extends Fragment {
             Toast.makeText(requireContext(), "Grocery deleted!", Toast.LENGTH_SHORT).show();
         }
     }
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Delete Checked Items");
+        builder.setMessage("Are you sure you want to delete all checked grocery items?");
 
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteCheckedGroceries();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Cancel the deletion
+            }
+        });
+
+        builder.show();
+    }
+    private void deleteCheckedGroceries() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Grocery grocery = snapshot.getValue(Grocery.class);
+                    if (grocery != null && grocery.getCheck()) {
+                        // Delete the grocery item
+                        databaseReference.child(grocery.getId()).removeValue();
+                    }
+                }
+                Toast.makeText(requireContext(), "Checked groceries deleted!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
+                Toast.makeText(requireContext(), "Error deleting checked groceries", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void showModifyDialog(final Grocery grocery) {
         final Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.dialog_add_ingredient);
