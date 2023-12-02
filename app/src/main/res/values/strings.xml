@@ -46,6 +46,8 @@
     <string name="Delete">Delete</string>
     <string name="Modify">Modify</string>
     <string name="Recipe_Name">Recipe Name</string>
-    <string name="tt">Total Time: </string>
-    <string name="pt">Prep Time: </string>
+    <string name="tt">Percentage of Ingredients: </string>
+    <string name="pt">Number of Missed Ingredients: </string>
+    <string name="Equipment">Equipment Required</string>
+    <string name="Equipment_list">Equipment List</string>
 </resources>

@@ -54,6 +54,23 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="@string/Instructions_list" />
+        <!-- Equipment header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/Equipment" />
+
+        <!-- Equipment content -->
+        <TextView
+            android:id="@+id/detail_recipe_equipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/Equipment_list" />
+
 
     </LinearLayout>
 </ScrollView>

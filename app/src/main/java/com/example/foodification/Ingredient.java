@@ -6,6 +6,7 @@ public class Ingredient {
     private String name;
     private double quantity;
     private String unit;
+    private String image;
 
     public Ingredient() {
         // Default constructor required by Firebase
@@ -13,6 +14,7 @@ public class Ingredient {
         name = "";
         quantity = 0.0;
         unit = "";
+        image = "";
     }
 
     public Ingredient(String id, String name, double quantity, String unit) {
@@ -53,5 +55,12 @@ public class Ingredient {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -18,7 +18,12 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipeList;
-    private Context context;
+    private Context context;    private RecipePageFragment fragment;
+
+    public RecipeAdapter(RecipePageFragment fragment, List<Recipe> recipeList) {
+        this.fragment = fragment;
+        this.recipeList = recipeList;
+    }
 
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
@@ -53,30 +58,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         holder.recipeTitle.setText(recipe.getName());
 
-        if (recipe.getPrepTime() != null && !recipe.getPrepTime().isEmpty()) {
-            holder.prepTime.setText(String.format("Prep time: %s", recipe.getPrepTime()));
+        if (recipe.getmissPer() != null && !recipe.getmissPer().isEmpty()) {
+            holder.prepTime.setText(String.format("Percentage of missed Ingredients: %s", recipe.getmissPer()));
         } else {
-            holder.prepTime.setText("Prep time: N/A");
+            holder.prepTime.setText("Percentage of missed Ingredients: N/A");
         }
 
-        if (recipe.getTotalTime() != null && !recipe.getTotalTime().isEmpty()) {
-            holder.totalTime.setText(String.format("Total time: %s", recipe.getTotalTime()));
+        if (recipe.getmissCount() != null && !recipe.getmissCount().isEmpty()) {
+            holder.totalTime.setText(String.format("Count of Missed Ingredients: %s", recipe.getmissCount()));
         } else {
-            holder.totalTime.setText("Total time: N/A");
+            holder.totalTime.setText("Count of Missed Ingredients: N/A");
         }
 
         String imageUrl = recipe.getImage();
         Picasso.get().load(imageUrl).into(holder.recipeImage);
 
-        holder.openButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent detailIntent = new Intent(context, RecipeDetailActivity.class);
-                detailIntent.putExtra("RecipeData", recipe);
-                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(detailIntent);
-            }
-        });
+        holder.openButton.setOnClickListener(v -> fragment.onRecipeClicked(recipe));
+
     }
 
     @Override

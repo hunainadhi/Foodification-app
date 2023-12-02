@@ -1,10 +1,15 @@
 package com.example.foodification;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RecipeInstruction {
+public class RecipeDetail implements Serializable {
     private String name;
     private List<RecipeStep> steps;
+
+    // Constructor
+    public RecipeDetail() {
+    }
 
     // Getters and Setters
     public String getName() {
@@ -23,4 +28,3 @@ public class RecipeInstruction {
         this.steps = steps;
     }
 }
-

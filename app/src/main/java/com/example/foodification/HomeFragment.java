@@ -138,8 +138,15 @@ public class HomeFragment extends Fragment {
                                 String name = recipeObject.getString("title");
                                 String image = recipeObject.getString("image");
 
+                                JSONArray missedIngredients = recipeObject.getJSONArray("missedIngredients");
+                                int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
+                                double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
+                                String missedPer = String.valueOf(missedPercentage);
+                                String missedCount = String.valueOf(missedIngredients.length());
+
+
                                 // Create a Recipe object and add it to the list
-                                Recipe recipe = new Recipe(id, image, name, "", "", "", "");
+                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "");
                                 recipes.add(recipe);
                             }
 

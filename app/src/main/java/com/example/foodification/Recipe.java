@@ -7,17 +7,17 @@ public class Recipe implements Serializable {
     private String id;
     private String image;
     private String name;
-    private String prepTime;
-    private String totalTime;
+    private String missPer;
+    private String missCount;
     private String ingredients;
     private String instructions;
 
-    public Recipe(String id, String image, String name, String prepTime, String totalTime, String ingredients, String instructions) {
+    public Recipe(String id, String image, String name, String missPer, String missCount, String ingredients, String instructions) {
         this.id = id;
         this.image = image;
         this.name = name;
-        this.prepTime = prepTime;
-        this.totalTime = totalTime;
+        this.missPer = missPer;
+        this.missCount = missCount;
         this.ingredients = ingredients;
         this.instructions = instructions;
     }
@@ -46,20 +46,20 @@ public class Recipe implements Serializable {
         this.name = name;
     }
 
-    public String getPrepTime() {
-        return prepTime;
+    public String getmissPer() {
+        return missPer;
     }
 
-    public void setPrepTime(String prepTime) {
-        this.prepTime = prepTime;
+    public void setmissPer(String missPer) {
+        this.missPer = missPer;
     }
 
-    public String getTotalTime() {
-        return totalTime;
+    public String getmissCount() {
+        return missCount;
     }
 
-    public void setTotalTime(String totalTime) {
-        this.totalTime = totalTime;
+    public void setmissCount(String missCount) {
+        this.missCount = missCount;
     }
 
     public String getIngredients() {
