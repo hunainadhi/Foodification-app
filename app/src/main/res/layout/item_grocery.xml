@@ -14,13 +14,23 @@
         android:padding="16dp"
         tools:ignore="MissingConstraints">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
         <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/groceryCheck"/>
+        <TextView
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="Grocery Name"
             android:textAppearance="@style/get_started" />
+    </LinearLayout>
 
 
         <LinearLayout

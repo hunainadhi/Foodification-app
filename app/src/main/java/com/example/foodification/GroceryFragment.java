@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class GroceryFragment extends Fragment {
 
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReferenceInv;
     private RecyclerView groceryList;
     private String email, safeEmail;
     private GroceryAdapter adapter;
@@ -54,6 +56,10 @@ public class GroceryFragment extends Fragment {
                 .getReference("users")
                 .child(safeEmail)
                 .child("grocery");
+        databaseReferenceInv = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(safeEmail)
+                .child("ingredients");
 
         FloatingActionButton addGroceryButton = view.findViewById(R.id.addGroceryButton);
         groceryList = view.findViewById(R.id.groceryList);
@@ -73,6 +79,12 @@ public class GroceryFragment extends Fragment {
                 if (grocery != null) {
                     showModifyDialog(grocery);
                 }
+            }
+
+            public void showOnCheck(int position, Boolean isChecked){
+
+                Grocery grocery = adapter.getGrocery(position);
+                showAddCheckDialog(grocery,isChecked);
             }
         });
 
@@ -211,11 +223,12 @@ public class GroceryFragment extends Fragment {
                 String quantityStr = quantityEditText.getText().toString().trim();
                 String unit = unitSpinner.getSelectedItem().toString().trim();
 
+
                 if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty() && !unit.equalsIgnoreCase("Select Unit")) {
                     double quantity = Double.parseDouble(quantityStr);
 
                     String groceryId = databaseReference.push().getKey();
-                    Grocery grocery = new Grocery(groceryId, name, quantity, unit);
+                    Grocery grocery = new Grocery(groceryId, name, quantity, unit,false);
 
                     if (groceryId != null) {
                         databaseReference.child(groceryId).setValue(grocery);
@@ -229,6 +242,34 @@ public class GroceryFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+
+    private void showAddCheckDialog(final Grocery grocery,final Boolean isChecked) {
+
+
+
+        if (isChecked) {
+            // The checkbox is checked, perform the desired action
+            String name = grocery.getName();
+            Double quantity = grocery.getQuantity();
+            String unit = grocery.getUnit();
+            grocery.setCheck(true);
+            databaseReference.child(grocery.getId()).setValue(grocery);
+
+            String ingredientId = databaseReferenceInv.push().getKey();
+            Ingredient ingredient = new Ingredient(ingredientId, name, quantity, unit);
+
+            if (ingredientId != null) {
+                databaseReferenceInv.child(ingredientId).setValue(ingredient);
+                Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+
+
     }
 
     private void updateGrocery() {
