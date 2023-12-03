@@ -57,7 +57,7 @@ public class InventoryFragment extends Fragment {
 
         FloatingActionButton addIngredientButton = view.findViewById(R.id.addIngredientButton);
         ingredientList = view.findViewById(R.id.ingredientList);
-        Button backbtn = view.findViewById(R.id.backButton);
+
 
         adapter = new IngredientAdapter(requireContext(), new ArrayList<Ingredient>(), new IngredientAdapter.OnItemClickListener() {
             @Override
@@ -88,10 +88,14 @@ public class InventoryFragment extends Fragment {
             }
         });
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                requireActivity().finish();
+            public void onClick(View v) {
+                // Handle back button click
+                if (getFragmentManager() != null) {
+                    getFragmentManager().popBackStack();
+                }
             }
         });
 

@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
                                 JSONArray missedIngredients = recipeObject.getJSONArray("missedIngredients");
                                 int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
                                 double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
-                                String missedPer = String.valueOf(missedPercentage);
+                                String missedPer = String.valueOf(missedPercentage).substring(0,4);
                                 String missedCount = String.valueOf(missedIngredients.length());
 
 

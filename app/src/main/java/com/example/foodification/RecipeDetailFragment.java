@@ -1,17 +1,20 @@
 package com.example.foodification;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -25,7 +28,6 @@ public class RecipeDetailFragment extends Fragment {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable("RecipeDetailData", recipeDetail);
-        args.putSerializable("RecipeDetailMissedIngredients", (Serializable) missedIngredients);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,20 +55,18 @@ public class RecipeDetailFragment extends Fragment {
                 recipeInstructions.setText(formatInstructions(recipeDetail.getSteps()));
             }
         }
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button click
+                if (getFragmentManager() != null) {
+                    getFragmentManager().popBackStack();
+                }
+            }
+        });
 
         return view;
-    }
-
-    private String formatIngredients(List<RecipeStep> steps) {
-        StringBuilder ingredientsBuilder = new StringBuilder();
-        for (RecipeStep step : steps) {
-            for (Ingredients ingredients : step.getIngredients()) {
-                ingredientsBuilder.append("• ")
-                        .append(ingredients.getName())
-                        .append("\n");
-            }
-        }
-        return ingredientsBuilder.toString();
     }
 
     private String formatInstructions(List<RecipeStep> steps) {
@@ -79,15 +79,25 @@ public class RecipeDetailFragment extends Fragment {
         }
         return instructionsBuilder.toString();
     }
-    private String formatEquipment(List<RecipeStep> steps) {
-        StringBuilder equipmentBuilder = new StringBuilder();
+    private String formatIngredients(List<RecipeStep> steps) {
+        Set<String> uniqueIngredients = new LinkedHashSet<>(); // Preserve the insertion order
         for (RecipeStep step : steps) {
-            for (Equipment equip : step.getEquipment()) {
-                equipmentBuilder.append("• ")
-                        .append(equip.getName())
-                        .append("\n");
+            for (Ingredients ingredient : step.getIngredients()) {
+                uniqueIngredients.add(ingredient.getName());
             }
         }
-        return equipmentBuilder.toString();
+        // Prepend "• " to the joined string if not empty
+        return uniqueIngredients.isEmpty() ? "" : "• " + TextUtils.join("\n• ", uniqueIngredients);
+    }
+
+    private String formatEquipment(List<RecipeStep> steps) {
+        Set<String> uniqueEquipment = new LinkedHashSet<>(); // Preserve the insertion order
+        for (RecipeStep step : steps) {
+            for (Equipment equip : step.getEquipment()) {
+                uniqueEquipment.add(equip.getName());
+            }
+        }
+        // Prepend "• " to the joined string if not empty
+        return uniqueEquipment.isEmpty() ? "" : "• " + TextUtils.join("\n• ", uniqueEquipment);
     }
 }
