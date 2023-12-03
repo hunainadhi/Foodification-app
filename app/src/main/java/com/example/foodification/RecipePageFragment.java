@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -73,43 +74,63 @@ public class RecipePageFragment extends Fragment {
     public void onRecipeClicked(Recipe recipe) {
         fetchRecipeDetailsAndOpenDetailFragment(recipe.getId());
     }
-
     private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId) {
-        String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-        String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your Spoonacular API key
+        getRecipeName(recipeId, new RecipeNameCallback() {
+            @Override
+            public void onRecipeNameReceived(String name) {
+                String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
+                String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your API key
+
+                String url = apiUrl + "?apiKey=" + apiKey;
+
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                try {
+                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name);
+                                    openRecipeDetailFragment(recipeDetail);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, error -> {
+                    // Handle error
+                });
+
+                MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
+            }
+        });
+    }
+
+    private void getRecipeName(String recipeId, RecipeNameCallback callback) {
+        String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
+        String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your API key
 
         String url = apiUrl + "?apiKey=" + apiKey;
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            // Parse the response to create a RecipeDetail object
-                            RecipeDetail recipeDetail = parseRecipeDetail(response);
-                            openRecipeDetailFragment(recipeDetail);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Handle JSON parsing error
-                        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        String recipeName = response.getString("title");
+                        callback.onRecipeNameReceived(recipeName);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Handle error
-            }
+                }, error -> {
+            // Handle error
         });
 
-        // Add the request to the RequestQueue
-        MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private RecipeDetail parseRecipeDetail(JSONArray response) throws JSONException {
+    private RecipeDetail parseRecipeDetail(JSONArray response, String rName) throws JSONException {
         RecipeDetail recipeDetail = new RecipeDetail();
 
         if (response.length() > 0) {
             JSONObject recipeObject = response.getJSONObject(0);
-            recipeDetail.setName(recipeObject.optString("name", ""));
+          //  recipeDetail.setName(recipeObject.optString("name", ""));
+            recipeDetail.setName(rName);
 
             JSONArray stepsArray = recipeObject.getJSONArray("steps");
             List<RecipeStep> steps = new ArrayList<>();
@@ -136,14 +157,14 @@ public class RecipePageFragment extends Fragment {
 
                 // Parsing ingredients
                 JSONArray ingredientsArray = stepObject.getJSONArray("ingredients");
-                List<Ingredient> ingredientList = new ArrayList<>();
+                List<Ingredients> ingredientList = new ArrayList<>();
                 for (int k = 0; k < ingredientsArray.length(); k++) {
                     JSONObject ingredientObject = ingredientsArray.getJSONObject(k);
-                    Ingredient ingredient = new Ingredient();
-                    ingredient.setId(ingredientObject.getString("id"));
-                    ingredient.setName(ingredientObject.getString("name"));
-                    ingredient.setImage(ingredientObject.getString("image"));
-                    ingredientList.add(ingredient);
+                    Ingredients ingredients = new Ingredients();
+                    ingredients.setId(ingredientObject.getString("id"));
+                    ingredients.setName(ingredientObject.getString("name"));
+                    ingredients.setImage(ingredientObject.getString("image"));
+                    ingredientList.add(ingredients);
                 }
                 step.setIngredients(ingredientList);
 
@@ -164,4 +185,7 @@ public class RecipePageFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+}
+interface RecipeNameCallback {
+    void onRecipeNameReceived(String name);
 }

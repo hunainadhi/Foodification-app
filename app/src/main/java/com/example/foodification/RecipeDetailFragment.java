@@ -17,7 +17,7 @@ public class RecipeDetailFragment extends Fragment {
     // UI elements
     private TextView recipeTitle;
     private TextView recipeIngredients;
-    private TextView recipeInstructions;
+    private TextView recipeInstructions, recipeEquipment;
 
     // Constructor for creating a new instance of the fragment with RecipeDetail
     public static RecipeDetailFragment newInstance(RecipeDetail recipeDetail) {
@@ -37,6 +37,7 @@ public class RecipeDetailFragment extends Fragment {
         recipeTitle = view.findViewById(R.id.detail_recipe_title);
         recipeIngredients = view.findViewById(R.id.detail_recipe_ingredients);
         recipeInstructions = view.findViewById(R.id.detail_recipe_instructions);
+        recipeEquipment= view.findViewById(R.id.detail_recipe_equipment);
 
         // Extract the recipe detail object from the arguments
         if (getArguments() != null) {
@@ -46,6 +47,7 @@ public class RecipeDetailFragment extends Fragment {
             if (recipeDetail != null) {
                 recipeTitle.setText(recipeDetail.getName());
                 recipeIngredients.setText(formatIngredients(recipeDetail.getSteps()));
+                recipeEquipment.setText(formatEquipment(recipeDetail.getSteps()));
                 recipeInstructions.setText(formatInstructions(recipeDetail.getSteps()));
             }
         }
@@ -56,9 +58,9 @@ public class RecipeDetailFragment extends Fragment {
     private String formatIngredients(List<RecipeStep> steps) {
         StringBuilder ingredientsBuilder = new StringBuilder();
         for (RecipeStep step : steps) {
-            for (Ingredient ingredient : step.getIngredients()) {
+            for (Ingredients ingredients : step.getIngredients()) {
                 ingredientsBuilder.append("• ")
-                        .append(ingredient.getName())
+                        .append(ingredients.getName())
                         .append("\n");
             }
         }
@@ -74,5 +76,16 @@ public class RecipeDetailFragment extends Fragment {
                     .append("\n\n");
         }
         return instructionsBuilder.toString();
+    }
+    private String formatEquipment(List<RecipeStep> steps) {
+        StringBuilder equipmentBuilder = new StringBuilder();
+        for (RecipeStep step : steps) {
+            for (Equipment equip : step.getEquipment()) {
+                equipmentBuilder.append("• ")
+                        .append(equip.getName())
+                        .append("\n");
+            }
+        }
+        return equipmentBuilder.toString();
     }
 }

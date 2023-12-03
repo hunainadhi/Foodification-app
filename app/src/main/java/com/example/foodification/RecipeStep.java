@@ -7,7 +7,7 @@ public class RecipeStep implements Serializable {
     private int number;
     private String step;
     private List<Equipment> equipment;
-    private List<Ingredient> ingredients;
+    private List<Ingredients> ingredients;
 
     // Constructor
     public RecipeStep() {
@@ -38,11 +38,11 @@ public class RecipeStep implements Serializable {
         this.equipment = equipment;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<Ingredients> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredients> ingredients) {
         this.ingredients = ingredients;
     }
 }
