@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment {
 
 
                                 // Create a Recipe object and add it to the list
-                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "");
+                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "",missedIngredients);
                                 recipes.add(recipe);
                             }
 

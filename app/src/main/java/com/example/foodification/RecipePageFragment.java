@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -72,9 +71,9 @@ public class RecipePageFragment extends Fragment {
     }
 
     public void onRecipeClicked(Recipe recipe) {
-        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId());
+        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(),recipe.missedIngredients);
     }
-    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId) {
+    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, JSONArray missedIngredients) {
         getRecipeName(recipeId, new RecipeNameCallback() {
             @Override
             public void onRecipeNameReceived(String name) {
@@ -88,7 +87,7 @@ public class RecipePageFragment extends Fragment {
                             @Override
                             public void onResponse(JSONArray response) {
                                 try {
-                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name);
+                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients);
                                     openRecipeDetailFragment(recipeDetail);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -124,7 +123,7 @@ public class RecipePageFragment extends Fragment {
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private RecipeDetail parseRecipeDetail(JSONArray response, String rName) throws JSONException {
+    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, JSONArray missedIngredients) throws JSONException {
         RecipeDetail recipeDetail = new RecipeDetail();
 
         if (response.length() > 0) {
@@ -158,6 +157,17 @@ public class RecipePageFragment extends Fragment {
                 // Parsing ingredients
                 JSONArray ingredientsArray = stepObject.getJSONArray("ingredients");
                 List<Ingredients> ingredientList = new ArrayList<>();
+                for (int k = 0; k < ingredientsArray.length(); k++) {
+                    JSONObject ingredientObject = ingredientsArray.getJSONObject(k);
+                    Ingredients ingredients = new Ingredients();
+                    ingredients.setId(ingredientObject.getString("id"));
+                    ingredients.setName(ingredientObject.getString("name"));
+                    ingredients.setImage(ingredientObject.getString("image"));
+                    ingredientList.add(ingredients);
+                }
+                step.setIngredients(ingredientList);
+                JSONArray missedIngredients1 = missedIngredients;
+                List<Ingredients> missedIngredients = new ArrayList<>();
                 for (int k = 0; k < ingredientsArray.length(); k++) {
                     JSONObject ingredientObject = ingredientsArray.getJSONObject(k);
                     Ingredients ingredients = new Ingredients();

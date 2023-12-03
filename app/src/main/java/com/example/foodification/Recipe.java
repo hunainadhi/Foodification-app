@@ -1,5 +1,7 @@
 package com.example.foodification;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 
 public class Recipe implements Serializable {
@@ -11,8 +13,9 @@ public class Recipe implements Serializable {
     private String missCount;
     private String ingredients;
     private String instructions;
+    JSONArray missedIngredients;
 
-    public Recipe(String id, String image, String name, String missPer, String missCount, String ingredients, String instructions) {
+    public Recipe(String id, String image, String name, String missPer, String missCount, String ingredients, String instructions, JSONArray missedIngredients) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -20,6 +23,7 @@ public class Recipe implements Serializable {
         this.missCount = missCount;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.missedIngredients=missedIngredients;
     }
 
     public String getId() {

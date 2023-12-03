@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RecipeDetailFragment extends Fragment {
@@ -24,6 +25,7 @@ public class RecipeDetailFragment extends Fragment {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable("RecipeDetailData", recipeDetail);
+        args.putSerializable("RecipeDetailMissedIngredients", (Serializable) missedIngredients);
         fragment.setArguments(args);
         return fragment;
     }
