@@ -109,6 +109,7 @@
             android:text="@string/Equipment_list" />
 
         <!-- Instructions header -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,6 +125,12 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="@string/Instructions_list" />
+
+        <Button
+            android:id="@+id/addMissedIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Missing Ingredients to Grocery" />
         <!-- Equipment header -->
 
 

@@ -84,12 +84,12 @@ public class RecipePageFragment extends Fragment {
     public void onRecipeClicked(Recipe recipe) {
         fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(),recipe.missedIngredients);
     }
-    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, JSONArray missedIngredients) {
+    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients) {
         getRecipeName(recipeId, new RecipeNameCallback() {
             @Override
             public void onRecipeNameReceived(String name) {
                 String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-                String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your API key
+                String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your API key
 
                 String url = apiUrl + "?apiKey=" + apiKey;
 
@@ -98,6 +98,7 @@ public class RecipePageFragment extends Fragment {
                             @Override
                             public void onResponse(JSONArray response) {
                                 try {
+
                                     RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients);
                                     openRecipeDetailFragment(recipeDetail);
                                 } catch (JSONException e) {
@@ -115,7 +116,7 @@ public class RecipePageFragment extends Fragment {
 
     private void getRecipeName(String recipeId, RecipeNameCallback callback) {
         String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
-        String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your API key
+        String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your API key
 
         String url = apiUrl + "?apiKey=" + apiKey;
 
@@ -134,7 +135,7 @@ public class RecipePageFragment extends Fragment {
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, JSONArray missedIngredients) throws JSONException {
+    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, List<Ingredient> missedIngredients) throws JSONException {
         RecipeDetail recipeDetail = new RecipeDetail();
 
         if (response.length() > 0) {
@@ -177,22 +178,10 @@ public class RecipePageFragment extends Fragment {
                     ingredientList.add(ingredients);
                 }
                 step.setIngredients(ingredientList);
-                JSONArray missedIngredients1 = missedIngredients;
-                List<Ingredients> missedIngredients = new ArrayList<>();
-                for (int k = 0; k < ingredientsArray.length(); k++) {
-                    JSONObject ingredientObject = ingredientsArray.getJSONObject(k);
-                    Ingredients ingredients = new Ingredients();
-                    ingredients.setId(ingredientObject.getString("id"));
-                    ingredients.setName(ingredientObject.getString("name"));
-                    ingredients.setImage(ingredientObject.getString("image"));
-                    ingredientList.add(ingredients);
-                }
-                step.setIngredients(ingredientList);
-
                 steps.add(step);
             }
-
             recipeDetail.setSteps(steps);
+            recipeDetail.setMissingIngredients(missedIngredients);
         }
 
         return recipeDetail;

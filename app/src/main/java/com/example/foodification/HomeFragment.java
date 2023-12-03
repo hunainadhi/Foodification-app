@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
     private void fetchRecipesAndStartRecipePage() {
         String ingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-        String apiKey = "42b956e445e84aa08770373b20991b9e"; // Replace with your Spoonacular API key
+        String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your Spoonacular API key
 
         String url = apiUrl + "?ingredients=" + ingredients + "&apiKey=" + apiKey;
 
@@ -139,6 +139,17 @@ public class HomeFragment extends Fragment {
                                 String image = recipeObject.getString("image");
 
                                 JSONArray missedIngredients = recipeObject.getJSONArray("missedIngredients");
+                                List<Ingredient> missedIngredientsList = new ArrayList<>();
+                                for (int j = 0; j < missedIngredients.length(); j++) {
+                                    JSONObject ingredientObject = missedIngredients.getJSONObject(j);
+                                    Ingredient ingredients = new Ingredient();
+                                    ingredients.setId(ingredientObject.getString("id"));
+                                    ingredients.setName(ingredientObject.getString("name"));
+                                    ingredients.setUnit(ingredientObject.getString("unit"));
+                                    ingredients.setAmount(ingredientObject.getString("amount"));
+                                    missedIngredientsList.add(ingredients);
+                                }
+
                                 int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
                                 double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
                                 String missedPer = String.valueOf(missedPercentage).substring(0,4);
@@ -146,7 +157,7 @@ public class HomeFragment extends Fragment {
 
 
                                 // Create a Recipe object and add it to the list
-                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "",missedIngredients);
+                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "",missedIngredientsList);
                                 recipes.add(recipe);
                             }
 
@@ -159,7 +170,7 @@ public class HomeFragment extends Fragment {
                             // Handle JSON parsing error
                         }
                     }
-                }, new Response.ErrorListener() {
+                    }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {

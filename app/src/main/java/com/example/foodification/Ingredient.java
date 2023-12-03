@@ -7,12 +7,14 @@ public class Ingredient {
     private double quantity;
     private String unit;
     private String image;
+    private String amount;
 
     public Ingredient() {
         // Default constructor required by Firebase
         id = "";
         name = "";
         quantity = 0.0;
+        amount="";
         unit = "";
         image = "";
     }
@@ -23,7 +25,13 @@ public class Ingredient {
         this.quantity = quantity;
         this.unit = unit;
     }
-
+    public Ingredient(String id, String name, double quantity, String unit,String amount) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.amount=amount;
+    }
     // Getter and setter methods for fields
     public String getId() {
         return id;
@@ -62,5 +70,12 @@ public class Ingredient {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

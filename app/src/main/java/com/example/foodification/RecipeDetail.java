@@ -6,6 +6,7 @@ import java.util.List;
 public class RecipeDetail implements Serializable {
     private String name;
     private List<RecipeStep> steps;
+    private List<Ingredient> missingIngredients;
 
     // Constructor
     public RecipeDetail() {
@@ -26,5 +27,13 @@ public class RecipeDetail implements Serializable {
 
     public void setSteps(List<RecipeStep> steps) {
         this.steps = steps;
+    }
+
+    public List<Ingredient> getMissingIngredients() {
+        return missingIngredients;
+    }
+
+    public void setMissingIngredients(List<Ingredient> missingIngredients) {
+        this.missingIngredients = missingIngredients;
     }
 }
