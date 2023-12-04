@@ -15,13 +15,33 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/recipeImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@android:drawable/ic_menu_gallery"
-            tools:ignore="ContentDescription,ImageContrastCheck" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+
+                app:srcCompat="@android:drawable/ic_menu_gallery"></ImageView> <!-- Replace with your image resource -->
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/corners_image"
+                android:contentDescription="Gradient border" />
+        </FrameLayout>
+<!--        <ImageView-->
+<!--            -->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:srcCompat="@android:drawable/ic_menu_gallery"-->
+<!--            android:background="@drawable/corners_image"-->
+
+<!--            tools:ignore="ContentDescription,ImageContrastCheck" />-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -62,7 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
-                android:text="@string/Open" />
+                android:text="@string/Open"
+                android:textColor="@color/white"
+                android:background="@drawable/buttons"/>
 
         <!-- Other TextViews for additional information like cooking time, etc., can go here -->
         </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -37,6 +39,8 @@ public class RecipeDetailFragment extends Fragment {
 
     // UI elements
     private TextView recipeTitle;
+    private ImageView recipeImage;
+
     private TextView recipeIngredients;
     private TextView recipeInstructions, recipeEquipment;
     private Button missingIngredientsButton;
@@ -72,6 +76,7 @@ public class RecipeDetailFragment extends Fragment {
         recipeIngredients = view.findViewById(R.id.detail_recipe_ingredients);
         recipeInstructions = view.findViewById(R.id.detail_recipe_instructions);
         recipeEquipment= view.findViewById(R.id.detail_recipe_equipment);
+        recipeImage= view.findViewById(R.id.recipeImage);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         email = preferences.getString("global_variable_key", "default_value");
         FirebaseApp.initializeApp(requireContext());
@@ -95,6 +100,12 @@ public class RecipeDetailFragment extends Fragment {
 
             // Populate the UI elements with the recipe detail data
             if (recipeDetail != null) {
+                String imageUrl = recipeDetail.getImage();
+                       Picasso.get()
+                        .load(imageUrl)
+//                        .placeholder(R.drawable.placeholder_image) // Placeholder image
+//                        .error(R.drawable.error_image) // Image to display on error
+                        .into(recipeImage);
                 recipeTitle.setText(recipeDetail.getName());
                 recipeIngredients.setText(formatIngredients(recipeDetail.getSteps()));
                 recipeEquipment.setText(formatEquipment(recipeDetail.getSteps()));

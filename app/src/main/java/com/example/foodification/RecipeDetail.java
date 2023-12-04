@@ -7,6 +7,7 @@ public class RecipeDetail implements Serializable {
     private String name;
     private List<RecipeStep> steps;
     private List<Ingredient> missingIngredients;
+    private String image;
 
     // Constructor
     public RecipeDetail() {
@@ -19,6 +20,13 @@ public class RecipeDetail implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<RecipeStep> getSteps() {

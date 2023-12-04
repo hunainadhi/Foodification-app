@@ -151,8 +151,9 @@ public class HomeFragment extends Fragment {
                                 }
 
                                 int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
-                                double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
-                                String missedPer = String.valueOf(missedPercentage).substring(0,4);
+                                double missedPercentage = totalIngredients == 0 ? 0 :  (double) missedIngredients.length() / totalIngredients * 100;
+
+                                String missedPer = String.valueOf((int)missedPercentage);
                                 String missedCount = String.valueOf(missedIngredients.length());
 
 
