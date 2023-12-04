@@ -21,7 +21,10 @@
         android:orientation="horizontal">
         <CheckBox
             android:layout_width="wrap_content"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:id="@+id/groceryCheck"/>
         <TextView
             android:id="@+id/nameTextView"
@@ -61,7 +64,10 @@
                     android:id="@+id/deleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete"
+                    android:text="@string/Delete"
+                    android:textColor="@color/white"
+                    android:background="@drawable/buttons"
+                    android:layout_marginStart="5dp"
                     app:layout_constraintRight_toRightOf="parent"/>
 
                 <!-- Modify Button -->
@@ -69,8 +75,10 @@
                     android:id="@+id/modifyButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Modify"
-
+                    android:text="@string/Modify"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/buttons"
                     app:layout_constraintRight_toLeftOf="@id/deleteButton"
                     />
 
