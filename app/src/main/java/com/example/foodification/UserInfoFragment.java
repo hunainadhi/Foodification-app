@@ -1,5 +1,6 @@
 package com.example.foodification;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,16 +27,17 @@ public class UserInfoFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    LinearLayout rightArrow;
     TextView btnSignOut;
+    RelativeLayout myFavouritesLayout;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_user_info, container, false);
 
         // Find buttons by their IDs
         btnSignOut = view.findViewById(R.id.btnSignOut);
-        rightArrow = view.findViewById(R.id.rightArrow);
+        myFavouritesLayout = view.findViewById(R.id.myFavouritesLayout);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         fetchAndDisplayUserName(view);
@@ -46,17 +49,15 @@ public class UserInfoFragment extends Fragment {
                 signOutUser();
             }
         });
-        rightArrow.setOnClickListener(new View.OnClickListener() {
+        myFavouritesLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Handle Sign Out button click
                 // Example: Sign out the user and navigate to FirstActivity
                 openFavouriteRecipes();
-                Toast.makeText(getActivity().getApplicationContext(), "Saved to Favourites", Toast.LENGTH_SHORT).show();
 
             }
         });
-
         return view;
     }
 

@@ -1,6 +1,7 @@
 package com.example.foodification;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +48,8 @@ public class RecipeDetailFragment extends Fragment {
     private TextView recipeInstructions, recipeEquipment;
     private Button missingIngredientsButton;
     private String email, safeEmail;
+
+    private String PREFS_KEY_FAVORITES_RECIPES="Favourites";
 
     private DatabaseReference mDatabase;
 
@@ -113,16 +118,31 @@ public class RecipeDetailFragment extends Fragment {
             }
         }
         Button favButton = view.findViewById(R.id.favButton);
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle back button click
-                String recipesString = new Gson().toJson(recipe);
-                if(recipesString!=null) {
-                    saveToFavourites(recipesString);
+        if (isRecipeInFavorites(recipe.getId())) {
+            // Recipe is already in favorites, disable the button
+            favButton.setEnabled(false);
+            favButton.setBackgroundResource(R.drawable.heart_filled);
+        } else {
+            // Recipe is not in favorites, enable the button and set a click listener
+            favButton.setEnabled(true);
+            favButton.setBackgroundResource(R.drawable.heart_outline);
+            favButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle back button click
+                    String recipesString = new Gson().toJson(recipe);
+                    if(recipesString!=null) {
+                        saveToFavourites(recipesString);
+                    }
+                    Snackbar.make(view, "Added to Favourites", Snackbar.LENGTH_SHORT).show();
+                    markRecipeAsAddedToFavorites(recipe.getId());
+                    // Disable the button to prevent further clicks
+                    favButton.setEnabled(false);
+                    favButton.setBackgroundResource(R.drawable.heart_filled);
+
                 }
-            }
-        });
+            });
+        }
         Button backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +162,37 @@ public class RecipeDetailFragment extends Fragment {
         });
         return view;
     }
+    private boolean isRecipeInFavorites(String recipeId) {
+        // Retrieve the set of clicked recipe IDs from SharedPreferences
+        Set<String> favoritesRecipeIds = getFavoritesRecipeIds();
 
+        // Check if the current recipe ID is in the set
+        return favoritesRecipeIds.contains(recipeId);
+    }
+
+    private void markRecipeAsAddedToFavorites(String recipeId) {
+        // Retrieve the set of clicked recipe IDs from SharedPreferences
+        Set<String> favoritesRecipeIds = getFavoritesRecipeIds();
+
+        // Add the current recipe ID to the set
+        favoritesRecipeIds.add(recipeId);
+
+        // Save the updated set back to SharedPreferences
+        saveFavoritesRecipeIds(favoritesRecipeIds);
+    }
+
+    private Set<String> getFavoritesRecipeIds() {
+        // Retrieve the set of favorites recipe IDs from SharedPreferences
+        // Use a different key than PREFS_KEY_CLICKED_RECIPES to store favorites
+        SharedPreferences preferences = requireActivity().getSharedPreferences("Favourite Recipes", Context.MODE_PRIVATE);
+        return preferences.getStringSet(PREFS_KEY_FAVORITES_RECIPES, new HashSet<>());
+    }
+
+    private void saveFavoritesRecipeIds(Set<String> favoritesRecipeIds) {
+        // Save the set of favorites recipe IDs to SharedPreferences
+        SharedPreferences preferences = requireActivity().getSharedPreferences("Favourite Recipes", Context.MODE_PRIVATE);
+        preferences.edit().putStringSet(PREFS_KEY_FAVORITES_RECIPES, favoritesRecipeIds).apply();
+    }
     private void saveToFavourites(String recipesString) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userId = currentUser.getUid();
@@ -162,6 +212,7 @@ public class RecipeDetailFragment extends Fragment {
                     // Value doesn't exist, set the new value directly
                     userRef.setValue(recipesString);
                 }
+
             }
 
             @Override
