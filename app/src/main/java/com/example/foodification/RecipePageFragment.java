@@ -82,9 +82,9 @@ public class RecipePageFragment extends Fragment {
     }
 
     public void onRecipeClicked(Recipe recipe) {
-        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(),recipe.missedIngredients);
+        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(),recipe.missedIngredients,recipe);
     }
-    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients) {
+    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients, Recipe recipe) {
         getRecipeName(recipeId, new RecipeNameCallback() {
             @Override
             public void onRecipeNameReceived(String name) {
@@ -100,7 +100,7 @@ public class RecipePageFragment extends Fragment {
                                 try {
 
                                     RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients);
-                                    openRecipeDetailFragment(recipeDetail);
+                                    openRecipeDetailFragment(recipeDetail,recipe);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -188,8 +188,8 @@ public class RecipePageFragment extends Fragment {
     }
 
 
-    private void openRecipeDetailFragment(RecipeDetail recipeDetail) {
-        RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail);
+    private void openRecipeDetailFragment(RecipeDetail recipeDetail, Recipe recipe) {
+        RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail,recipe);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.homeFragmentContainer, fragment) // Make sure the ID matches with your layout
                 .addToBackStack(null)

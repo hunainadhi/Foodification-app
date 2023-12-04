@@ -18,11 +18,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RecipeDetailFragment extends Fragment {
@@ -34,14 +42,21 @@ public class RecipeDetailFragment extends Fragment {
     private Button missingIngredientsButton;
     private String email, safeEmail;
 
+    private DatabaseReference mDatabase;
+
+
+    private FirebaseAuth mAuth;
+
     private DatabaseReference databaseReference;
     private RecipeDetail recipeDetail;
+    private Recipe recipe;
 
     // Constructor for creating a new instance of the fragment with RecipeDetail
-    public static RecipeDetailFragment newInstance(RecipeDetail recipeDetail) {
+    public static RecipeDetailFragment newInstance(RecipeDetail recipeDetail, Recipe recipe) {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable("RecipeDetailData", recipeDetail);
+        args.putSerializable("Recipe", recipe);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,7 +75,8 @@ public class RecipeDetailFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         email = preferences.getString("global_variable_key", "default_value");
         FirebaseApp.initializeApp(requireContext());
-
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("favouriteRecipes");
         safeEmail = email.replace('.', ',')
                 .replace('#', '-')
                 .replace('$', '+')
@@ -75,6 +91,7 @@ public class RecipeDetailFragment extends Fragment {
         // Extract the recipe detail object from the arguments
         if (getArguments() != null) {
              recipeDetail = (RecipeDetail) getArguments().getSerializable("RecipeDetailData");
+             recipe = (Recipe) getArguments().getSerializable("Recipe");
 
             // Populate the UI elements with the recipe detail data
             if (recipeDetail != null) {
@@ -84,6 +101,17 @@ public class RecipeDetailFragment extends Fragment {
                 recipeInstructions.setText(formatInstructions(recipeDetail.getSteps()));
             }
         }
+        Button favButton = view.findViewById(R.id.favButton);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button click
+                String recipesString = new Gson().toJson(recipe);
+                if(recipesString!=null) {
+                    saveToFavourites(recipesString);
+                }
+            }
+        });
         Button backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +130,35 @@ public class RecipeDetailFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void saveToFavourites(String recipesString) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = mDatabase.child(userId).child("recipesJson");
+
+        // Read the current value from the database
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the value exists
+                if (dataSnapshot.exists()) {
+                    // Value exists, append the new value
+                    String currentRecipesJson = dataSnapshot.getValue(String.class);
+                    String newRecipesJson = currentRecipesJson + ","+recipesString;
+                    userRef.setValue(newRecipesJson);
+                } else {
+                    // Value doesn't exist, set the new value directly
+                    userRef.setValue(recipesString);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+                Log.e("FirebaseAppend", "Error reading data", databaseError.toException());
+            }
+        });
     }
 
     private String formatInstructions(List<RecipeStep> steps) {

@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +25,7 @@ public class UserInfoFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    LinearLayout rightArrow;
     TextView btnSignOut;
 
     @Override
@@ -31,6 +34,7 @@ public class UserInfoFragment extends Fragment {
 
         // Find buttons by their IDs
         btnSignOut = view.findViewById(R.id.btnSignOut);
+        rightArrow = view.findViewById(R.id.rightArrow);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         fetchAndDisplayUserName(view);
@@ -42,9 +46,48 @@ public class UserInfoFragment extends Fragment {
                 signOutUser();
             }
         });
+        rightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle Sign Out button click
+                // Example: Sign out the user and navigate to FirstActivity
+                openFavouriteRecipes();
+                Toast.makeText(getActivity().getApplicationContext(), "Saved to Favourites", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         return view;
     }
+
+    private void openFavouriteRecipes() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            DatabaseReference userRef = mDatabase.child("favouriteRecipes").child(userId);
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Assuming you have a "name" field in your user node
+                        String recipesJson = dataSnapshot.child("recipesJson").getValue(String.class);
+                        recipesJson='['+recipesJson+']';
+                        replaceFragment(new RecipePageFragment(recipesJson));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle errors
+                    Toast.makeText(getActivity(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+
+        }
 
     private void signOutUser() {
 
@@ -86,6 +129,13 @@ public class UserInfoFragment extends Fragment {
                 }
             });
         }
+    }
+    private void replaceFragment(Fragment fragment) {
+        // Replace the current fragment with the new one
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.homeFragmentContainer, fragment); // Use your fragment container ID
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
 

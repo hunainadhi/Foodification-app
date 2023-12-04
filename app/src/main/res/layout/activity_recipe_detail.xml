@@ -15,6 +15,15 @@
         android:layout_marginStart="0dp"></View>
 
     <Button
+        android:id="@+id/favButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/backButton"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/heart"
+        tools:ignore="SpeakableTextPresentCheck" />
+    <Button
         android:id="@+id/backButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
