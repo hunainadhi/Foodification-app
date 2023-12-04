@@ -40,6 +40,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.2.0")
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("com.squareup.picasso:picasso:2.8")
+    implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("com.android.volley:volley:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
