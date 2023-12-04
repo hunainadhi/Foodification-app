@@ -30,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
                     replaceFragment(new UserInfoFragment());
                     return true;
                 }
-                else if (item.getItemId() == R.id.person) {
+                else if (item.getItemId() == R.id.home) {
                     // Replace startActivity with fragment transaction
                     replaceFragment(new HomeFragment());
                     return true;
@@ -40,9 +40,9 @@ public class BaseActivity extends AppCompatActivity {
                     replaceFragment(new InventoryFragment());
                     return true;
                 }
-                else if (item.getItemId() == R.id.home) {
+                else if (item.getItemId() == R.id.recipe) {
                     // Replace startActivity with fragment transaction
-                    replaceFragment(new RecipePageFragment());
+                    replaceFragment(new GroceryFragment());
                     return true;
                 }
                 return false;

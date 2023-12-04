@@ -111,8 +111,11 @@ public class GroceryFragment extends Fragment {
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                requireActivity().finish();
+            public void onClick(View v) {
+                // Handle back button click
+                if (getFragmentManager() != null) {
+                    getFragmentManager().popBackStack();
+                }
             }
         });
 

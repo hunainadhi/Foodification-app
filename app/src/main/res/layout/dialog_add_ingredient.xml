@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:background="#01AED8"
+        android:textColor="@color/white"
+        android:background="@drawable/buttons"
         android:text="@string/Add"
         tools:ignore="TextContrastCheck" />
 </LinearLayout>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/person"
+        android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/home"
-        android:title="Recipe"
+        android:id="@+id/recipe"
+        android:title="Grocery List"
         android:icon="@drawable/recipe"/>
     <item
         android:id="@+id/settings"
-        android:title="Grocery list"
+        android:title="Inventory"
         android:icon="@drawable/grocery_list"/>
     <item
         android:id="@+id/account"

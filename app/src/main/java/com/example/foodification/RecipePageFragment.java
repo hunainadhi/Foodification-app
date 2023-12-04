@@ -99,7 +99,7 @@ public class RecipePageFragment extends Fragment {
                             public void onResponse(JSONArray response) {
                                 try {
 
-                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients);
+                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients, recipe.getImage());
                                     openRecipeDetailFragment(recipeDetail,recipe);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -135,7 +135,7 @@ public class RecipePageFragment extends Fragment {
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, List<Ingredient> missedIngredients) throws JSONException {
+    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, List<Ingredient> missedIngredients, String image) throws JSONException {
         RecipeDetail recipeDetail = new RecipeDetail();
 
         if (response.length() > 0) {
@@ -182,6 +182,8 @@ public class RecipePageFragment extends Fragment {
             }
             recipeDetail.setSteps(steps);
             recipeDetail.setMissingIngredients(missedIngredients);
+            recipeDetail.setImage(image);
+
         }
 
         return recipeDetail;
