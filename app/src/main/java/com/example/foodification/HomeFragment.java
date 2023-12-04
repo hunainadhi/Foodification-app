@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
     private void fetchRecipesAndStartRecipePage() {
         String ingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-        String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your Spoonacular API key
+        String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your Spoonacular API key
 
         String url = apiUrl + "?ingredients=" + ingredients + "&apiKey=" + apiKey;
 

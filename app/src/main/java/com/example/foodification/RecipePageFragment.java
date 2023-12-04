@@ -89,16 +89,16 @@ public class RecipePageFragment extends Fragment {
             @Override
             public void onRecipeNameReceived(String name) {
                 String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-                String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your API key
+                String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your API key
 
                 String url = apiUrl + "?apiKey=" + apiKey;
-
+                ProgressBarClass.getInstance().showProgress(getContext());
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray response) {
+                                ProgressBarClass.getInstance().dismissProgress();
                                 try {
-
                                     RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients);
                                     openRecipeDetailFragment(recipeDetail,recipe);
                                 } catch (JSONException e) {
@@ -106,6 +106,7 @@ public class RecipePageFragment extends Fragment {
                                 }
                             }
                         }, error -> {
+                    ProgressBarClass.getInstance().dismissProgress();
                     // Handle error
                 });
 
@@ -116,19 +117,23 @@ public class RecipePageFragment extends Fragment {
 
     private void getRecipeName(String recipeId, RecipeNameCallback callback) {
         String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
-        String apiKey = "90abde92d21e41b5b9a7c079eb1cc83a"; // Replace with your API key
+        String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your API key
 
         String url = apiUrl + "?apiKey=" + apiKey;
 
+        ProgressBarClass.getInstance().showProgress(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
+                        ProgressBarClass.getInstance().dismissProgress();
                         String recipeName = response.getString("title");
                         callback.onRecipeNameReceived(recipeName);
                     } catch (JSONException e) {
+                        ProgressBarClass.getInstance().dismissProgress();
                         e.printStackTrace();
                     }
                 }, error -> {
+            ProgressBarClass.getInstance().dismissProgress();
             // Handle error
         });
 
