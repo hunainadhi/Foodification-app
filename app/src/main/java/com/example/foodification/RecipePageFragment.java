@@ -89,7 +89,7 @@ public class RecipePageFragment extends Fragment {
             @Override
             public void onRecipeNameReceived(String name) {
                 String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-                String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your API key
+                String apiKey = "eb88cf558ee548cc87210f2e5f1c3dc5"; // Replace with your API key
 
                 String url = apiUrl + "?apiKey=" + apiKey;
                 ProgressBarClass.getInstance().showProgress(getContext());
@@ -118,7 +118,7 @@ public class RecipePageFragment extends Fragment {
 
     private void getRecipeName(String recipeId, RecipeNameCallback callback) {
         String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
-        String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your API key
+        String apiKey = "eb88cf558ee548cc87210f2e5f1c3dc5"; // Replace with your API key
 
         String url = apiUrl + "?apiKey=" + apiKey;
 
