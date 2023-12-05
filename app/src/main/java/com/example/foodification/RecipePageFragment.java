@@ -69,7 +69,8 @@ public class RecipePageFragment extends Fragment {
 
     private void fetchRecipesFromIntent() {
         if (recipesJson != null) {
-            Type listType = new TypeToken<List<Recipe>>(){}.getType();
+            Type listType = new TypeToken<List<Recipe>>() {
+            }.getType();
             recipeList = new Gson().fromJson(recipesJson, listType);
             updateRecipeData();
         }
@@ -82,15 +83,13 @@ public class RecipePageFragment extends Fragment {
     }
 
     public void onRecipeClicked(Recipe recipe) {
-        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(),recipe.missedIngredients,recipe);
+        fetchRecipeDetailsAndOpenDetailFragment(recipe.getId(), recipe.missedIngredients, recipe);
     }
-    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients, Recipe recipe) {
-        getRecipeName(recipeId, new RecipeNameCallback() {
-            @Override
-            public void onRecipeNameReceived(String name) {
-                String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-                String apiKey = "eb88cf558ee548cc87210f2e5f1c3dc5"; // Replace with your API key
 
+    private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients, Recipe recipe) {
+                String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
+                String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
+                String Name = recipe.getName();
                 String url = apiUrl + "?apiKey=" + apiKey;
                 ProgressBarClass.getInstance().showProgress(getContext());
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -100,8 +99,8 @@ public class RecipePageFragment extends Fragment {
                                 ProgressBarClass.getInstance().dismissProgress();
                                 try {
 
-                                    RecipeDetail recipeDetail = parseRecipeDetail(response, name,missedIngredients, recipe.getImage());
-                                    openRecipeDetailFragment(recipeDetail,recipe);
+                                    RecipeDetail recipeDetail = parseRecipeDetail(response, Name, missedIngredients, recipe.getImage());
+                                    openRecipeDetailFragment(recipeDetail, recipe);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -112,13 +111,13 @@ public class RecipePageFragment extends Fragment {
                 });
 
                 MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
-            }
-        });
+
+
     }
 
     private void getRecipeName(String recipeId, RecipeNameCallback callback) {
         String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
-        String apiKey = "eb88cf558ee548cc87210f2e5f1c3dc5"; // Replace with your API key
+        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
 
         String url = apiUrl + "?apiKey=" + apiKey;
 
@@ -145,7 +144,7 @@ public class RecipePageFragment extends Fragment {
 
         if (response.length() > 0) {
             JSONObject recipeObject = response.getJSONObject(0);
-          //  recipeDetail.setName(recipeObject.optString("name", ""));
+            //  recipeDetail.setName(recipeObject.optString("name", ""));
             recipeDetail.setName(rName);
 
             JSONArray stepsArray = recipeObject.getJSONArray("steps");
@@ -189,6 +188,7 @@ public class RecipePageFragment extends Fragment {
             recipeDetail.setMissingIngredients(missedIngredients);
             recipeDetail.setImage(image);
 
+
         }
 
         return recipeDetail;
@@ -196,7 +196,7 @@ public class RecipePageFragment extends Fragment {
 
 
     private void openRecipeDetailFragment(RecipeDetail recipeDetail, Recipe recipe) {
-        RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail,recipe);
+        RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail, recipe);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.homeFragmentContainer, fragment) // Make sure the ID matches with your layout
                 .addToBackStack(null)

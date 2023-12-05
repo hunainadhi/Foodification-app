@@ -120,9 +120,9 @@ public class HomeFragment extends Fragment {
     private void fetchRecipesAndStartRecipePage() {
         String ingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-        String apiKey = "eb88cf558ee548cc87210f2e5f1c3dc5"; // Replace with your Spoonacular API key
+        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your Spoonacular API key
 
-        String url = apiUrl + "?ingredients=" + ingredients + "&apiKey=" + apiKey;
+        String url = apiUrl + "?ingredients=" + ingredients + "&ranking=2&number=10&apiKey=" + apiKey;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
