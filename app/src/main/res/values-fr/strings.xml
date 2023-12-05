@@ -19,6 +19,7 @@
     <string name="generate_ne">Générez des recettes nouvelles et aléatoires</string>
     <string name="title_activity_recipe_detail">Détails de la recette</string>
     <string name="Open">Ouvrir</string>
+    <string name="grocery_string">Épicerie</string>
     <string name="Recipe_Title">Titre de la recette</string>
     <string name="Ingredients">Ingrédients</string>
     <string name="Ingredients_list">Liste des ingrédients</string>
@@ -47,4 +48,28 @@
     <string name="Recipe_Name">Nom de la recette</string>
     <string name="tt">Temps total: </string>
     <string name="pt">Temps de préparation: </string>
+    <string name="Equipment">Équipement requis</string>
+    <string name="Equipment_list">Liste de l’équipement</string>
+    <string name="_1_if_you_want_to_see_what_you_have_in_you_inventory_click_on_inventory_it_will_show_you_all_the_ingredients_you_have_at_home">1. Si vous voulez voir ce que vous avez dans votre inventaire, cliquez sur Inventaire. Il vous montrera tous les ingrédients que vous avez à la maison.</string>
+    <string name="_2_you_can_add_ingredients_you_have_at_home_by_clicking_the_sign_at_the_bottom_right_and_enter_the_details_in_the_dialog_box_that_appears_and_then_click_add_to_store_the_details_to_the_inventory">2. Vous pouvez ajouter les ingrédients que vous avez à la maison en cliquant sur le signe + en bas à droite et entrez les détails dans la boîte de dialogue qui apparaît. Cliquez ensuite sur Ajouter pour stocker les détails dans l’inventaire</string>
+    <string name="_3_if_you_want_to_see_your_shopping_list_click_on_my_grocery_on_the_home_screen_it_takes_to_to_the_grocery_screen">3. Si vous voulez voir votre liste d’épicerie, cliquez sur Mon épicerie sur l’écran d’accueil. Il faut passer à l’écran de l’épicerie.</string>
+    <string name="_4_you_can_add_grocery_to_the_list_by_clicking_the_button_on_the_bottom_right_and_a_dialog_appears_where_you_can_add_the_details_of_the_ingredient">4. Vous pouvez ajouter l’épicerie à la liste en cliquant sur le bouton + en bas à droite et une boîte de dialogue apparaît où vous pouvez ajouter les détails de l’ingrédient.</string>
+    <string name="_5_there_is_a_check_box_beside_every_ingredient_in_my_grocery_which_on_ticking_will_add_the_ingredients_to_the_inventory_this_checkbox_feature_is_to_ensure_that_you_have_bought_the_items">5. Il y a une case à cocher à côté de chaque ingrédient dans Mon épicerie qui, en cochant la case, ajoutera les ingrédients à l’inventaire. Cette fonction de case à cocher permet de s’assurer que vous avez acheté les articles</string>
+    <string name="_6_you_can_the_refresh_button_to_clear_your_grocery_list_after_adding_it_to_the_inventory">6. Vous pouvez cliquer sur le bouton d’actualisation pour effacer votre liste d’épicerie après l’avoir ajoutée à l’inventaire.</string>
+    <string name="_7_if_you_want_to_find_a_recipe_with_ingredients_you_have_in_the_inventory_click_on_my_recipes_from_the_home_screen">7. Si vous voulez trouver une recette avec les ingrédients que vous avez dans l’inventaire. Cliquez sur Mes recettes à partir de l’écran d’accueil.</string>
+    <string name="_8_on_the_next_screen_recipes_with_ingredients_you_have_will_be_visible_on_the_screen_you_can_select_one_and_click_on_it_for_its_details">8. Sur l’écran suivant, les recettes avec les ingrédients que vous avez seront visibles à l’écran. Vous pouvez en sélectionner un et cliquer dessus pour obtenir ses détails.</string>
+    <string name="_9_click_open_on_the_recipe_you_want_details_of_and_it_will_show_you_all_details_about_the_recipe">9. Cliquez sur Ouvrir sur la recette dont vous souhaitez obtenir des détails et tous les détails de la recette s’afficheront.</string>
+    <string name="_10_if_you_want_to_add_the_missing_ingredients_required_for_the_recipe_to_shopping_cart_click_on_add_missing_ingredients_to_grocery_button_at_the_end_of_the_recipe">10. Si vous souhaitez ajouter les ingrédients manquants nécessaires à la recette au panier. Cliquez sur le bouton Ajouter les ingrédients manquants à l’épicerie à la fin de la recette.</string>
+    <string name="_11_you_can_also_save_a_recipe_to_your_favorites_by_clicking_on_the_heart_button_at_the_top_of_the_recipe">11. Vous pouvez également enregistrer une recette dans vos favoris en cliquant sur le bouton en forme de cœur en haut de la recette.</string>
+    <string name="_12_you_can_see_all_your_favorite_recipes_by_clicking_on_the_my_favorites_button_the_account_screen">12. Vous pouvez voir toutes vos recettes préférées en cliquant sur le bouton Mes favoris sur l’écran Compte.</string>
+    <string name="_13_you_can_navigate_between_various_screen_by_using_the_bottom_navigation_buttons">13. Vous pouvez naviguer entre les différents écrans à l’aide des boutons de navigation inférieurs.</string>
+    <string name="author_names">Noms des auteurs:</string>
+    <string name="abdul_muhaymin_mohammed">Abdul Muhaymin Mohammed</string>
+    <string name="sachwin_kohli">Sachwin Kohli</string>
+    <string name="mohammed_abdul_malik">Mohammed Abdul Malik</string>
+    <string name="hunain_adhikari">Hunain Adhikari</string>
+    <string name="foodification_v1">Foodification V1</string>
+    <string name="do_you_want_instructions_on_how_to_use_the_application">Voulez-vous des instructions sur la façon d’utiliser l’application?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>

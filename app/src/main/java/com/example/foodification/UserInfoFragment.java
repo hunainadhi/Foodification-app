@@ -1,14 +1,18 @@
 package com.example.foodification;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ public class UserInfoFragment extends Fragment {
     private DatabaseReference mDatabase;
     TextView btnSignOut;
     RelativeLayout myFavouritesLayout;
+    RelativeLayout helpLayout;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,6 +43,7 @@ public class UserInfoFragment extends Fragment {
         // Find buttons by their IDs
         btnSignOut = view.findViewById(R.id.btnSignOut);
         myFavouritesLayout = view.findViewById(R.id.myFavouritesLayout);
+        helpLayout = view.findViewById(R.id.helpLayout);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         fetchAndDisplayUserName(view);
@@ -58,7 +64,38 @@ public class UserInfoFragment extends Fragment {
 
             }
         });
+        helpLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle Sign Out button click
+                // Example: Sign out the user and navigate to FirstActivity
+                openDialog();
+
+            }
+        });
         return view;
+    }
+
+    private void openDialog() {
+        final Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.dialog_help);
+        Button yesButton = dialog.findViewById(R.id.yesButton);
+        Button noButton = dialog.findViewById(R.id.noButton);
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new InstructionsFragment());
+                dialog.dismiss();
+            }
+        });
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void openFavouriteRecipes() {
