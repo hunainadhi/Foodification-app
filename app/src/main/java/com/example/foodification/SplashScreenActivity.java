@@ -2,6 +2,8 @@ package com.example.foodification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,19 +17,27 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                // Start the main activity
+                if (currentUser != null) {
+                    // User is signed in, redirect to HomeActivity
+                    startActivity(new Intent(SplashScreenActivity.this, BaseActivity.class));
+                } else {
+                    // User is signed out, redirect to FirstActivity (or SignInActivity)
+                    startActivity(new Intent(SplashScreenActivity.this, FirstActivity.class));
+                }
 
-        if (currentUser != null) {
-            // User is signed in, redirect to HomeActivity
-            startActivity(new Intent(SplashScreenActivity.this, BaseActivity.class));
-        } else {
-            // User is signed out, redirect to FirstActivity (or SignInActivity)
-            startActivity(new Intent(SplashScreenActivity.this, FirstActivity.class));
-        }
+                // Finish the SplashScreenActivity to prevent going back to it
+                finish();
+            }
+        }, 800);
 
-        // Finish the SplashScreenActivity to prevent going back to it
-        finish();
+
     }
 }
