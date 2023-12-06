@@ -86,7 +86,7 @@ public class RecipePageFragment extends Fragment {
 
     private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients, Recipe recipe) {
         String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
+        String apiKey = "438f4a62633645fd893cddefb2f2df00"; // Replace with your API key
         String url = apiUrl + "?apiKey=" + apiKey;
 
         ProgressBarClass.getInstance().showProgress(getContext());
