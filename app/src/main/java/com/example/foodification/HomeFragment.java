@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment {
         String aingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
         String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
-        String url = apiUrl + "?ingredients=" + aingredients + "&ranking=2&number=10&apiKey=" + apiKey;
+        String url = apiUrl + "?ingredients=" + aingredients + "&number=20&apiKey=" + apiKey;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
