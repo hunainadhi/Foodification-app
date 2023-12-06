@@ -72,4 +72,22 @@
     <string name="do_you_want_instructions_on_how_to_use_the_application">Voulez-vous des instructions sur la façon d’utiliser l’application?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="TAC1">
+    Introduction
+    \n \nWelcome to Foodification! These Terms and Conditions govern your use of Foodification and the services we offer. Foodification is a mobile application that helps you manage your grocery inventory and suggests recipes based on your current inventory.
+    \n \nAcceptance of Terms
+    \n \nBy downloading, accessing, or using Foodification, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you do not have permission to access our services.
+    \n \nService Description
+    \n \nFoodification provides a platform for managing grocery inventory and generating recipe suggestions. The accuracy of the inventory tracking and recipe suggestions depends on the information you provide.
+    \n \nUser Responsibilities
+    \n \nYou agree to provide accurate and complete information about your grocery inventory. \nYou are responsible for maintaining the confidentiality of your account information and password.\nYou agree to use Foodification for personal, non-commercial use only.
+            \n \nUser-Generated Content
+    \n \nYou may be able to submit content, such as inventory data or personal recipes. You retain any rights you hold in that content, but you grant us a license to use, store, and display this content in relation to the services we provide.
+    \n \nProhibited Uses
+    \n \nYou agree not to use Foodification for any unlawful purpose or in any way that interrupts, damages, or impairs the service.
+    \n \nTermination
+    \n \nWe may terminate or suspend your access to Foodification immediately, without prior notice or liability, for any breach of these Terms.
+    \n \nChanges to Terms
+    \n \nWe reserve the right to modify these Terms at any time. Changes are effective immediately upon posting.
+    </string>
 </resources>

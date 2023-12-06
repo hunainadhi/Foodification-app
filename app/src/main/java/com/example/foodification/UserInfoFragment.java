@@ -31,7 +31,7 @@ public class UserInfoFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    TextView btnSignOut;
+    TextView btnSignOut, termsAndConditions, contactUs;
     RelativeLayout myFavouritesLayout;
     RelativeLayout helpLayout;
 
@@ -64,6 +64,25 @@ public class UserInfoFragment extends Fragment {
 
             }
         });
+
+        termsAndConditions = view.findViewById(R.id.termNC); // Make sure ID matches with your layout
+        termsAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace fragment to show Terms and Conditions
+                replaceFragment(new TermsAndConditionsFragment());
+            }
+        });
+
+        contactUs = view.findViewById(R.id.contactUs); // Make sure ID matches with your layout
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace fragment to show Contact Us
+                replaceFragment(new ContactUsFragment());
+            }
+        });
+
         helpLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +144,7 @@ public class UserInfoFragment extends Fragment {
         }
 
 
-        }
+    }
 
     private void signOutUser() {
 
@@ -176,4 +195,5 @@ public class UserInfoFragment extends Fragment {
         transaction.commit();
     }
 }
+
 
