@@ -39,7 +39,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase, databaseReference;
-    private String email, safeEmail;
+    private String safeEmail;
     private StringBuilder ingredientsStringBuilder;
     private String allIngredientNames;
 
@@ -50,15 +50,21 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        String userEmail = preferences.getString("global_variable_key", "default_value");
+        String userEmail = preferences.getString("global_variable_key", null);
 
-        FirebaseApp.initializeApp(getContext());
+        if (userEmail != null) {
+            safeEmail = userEmail.replace('.', ',')
+                    .replace('#', '-')
+                    .replace('$', '+')
+                    .replace('[', '(')
+                    .replace(']', ')');
+        }
 
-        safeEmail = userEmail.replace('.', ',')
-                .replace('#', '-')
-                .replace('$', '+')
-                .replace('[', '(')
-                .replace(']', ')');
+        if (FirebaseApp.getApps(getContext()).isEmpty()) {
+            FirebaseApp.initializeApp(getContext());
+        }
+
+
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(safeEmail)
@@ -82,57 +88,123 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors
+                Toast.makeText(getActivity(), "Failed to load ingredients", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Call the method to fetch and display the user's name
+
         fetchAndDisplayUserName(view);
-
-        View invView = view.findViewById(R.id.rectangle_8);
-        invView.setOnClickListener(v -> {
-            // Replace startActivity with fragment transaction
-            replaceFragment(new InventoryFragment());
-        });
-
-        View RecView = view.findViewById(R.id.rectangle_9);
-        RecView.setOnClickListener(v -> {
-            // Replace startActivity with fragment transaction
-            fetchRecipesAndStartRecipePage();
-            //replaceFragment(new RecipePageFragment());
-        });
-
-        View ExpView = view.findViewById(R.id.rectangle_4);
-        ExpView.setOnClickListener(v -> {
-            // Replace startActivity with fragment transaction
-            fetchRecipesAndStartRecipePage();
-            //(new RecipePageFragment());
-        });
-
-        View GrocView = view.findViewById(R.id.rectangle_1);
-        GrocView.setOnClickListener(v -> {
-            // Replace startActivity with fragment transaction
-            replaceFragment(new GroceryFragment());
-        });
+        setupViewListeners(view);
+//        View invView = view.findViewById(R.id.rectangle_8);
+//        invView.setOnClickListener(v -> {
+//            // Replace startActivity with fragment transaction
+//            replaceFragment(new InventoryFragment());
+//        });
+//
+//        View RecView = view.findViewById(R.id.rectangle_9);
+//        RecView.setOnClickListener(v -> {
+//            // Replace startActivity with fragment transaction
+//            fetchRecipesAndStartRecipePage();
+//            //replaceFragment(new RecipePageFragment());
+//        });
+//
+//        View ExpView = view.findViewById(R.id.rectangle_4);
+//        ExpView.setOnClickListener(v -> {
+//            // Replace startActivity with fragment transaction
+//            fetchRecipesAndStartRecipePage();
+//            //(new RecipePageFragment());
+//        });
+//
+//        View GrocView = view.findViewById(R.id.rectangle_1);
+//        GrocView.setOnClickListener(v -> {
+//            // Replace startActivity with fragment transaction
+//            replaceFragment(new GroceryFragment());
+//        });
 
         return view;
     }
+//    private void fetchRecipesAndStartRecipePage() {
+//        String ingredients = allIngredientNames;
+//        String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
+//        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your Spoonacular API key
+//
+//        String url = apiUrl + "?ingredients=" + ingredients + "&ranking=2&number=10&apiKey=" + apiKey;
+//
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                try {
+//                    if (response != null) {
+//                        List<Recipe> recipes = new ArrayList<>();
+//                        for (int i = 0; i < response.length(); i++) {
+//                            JSONObject recipeObject = response.getJSONObject(i);
+//                            String id = recipeObject.getString("id");
+//                            String name = recipeObject.getString("title");
+//                            String image = recipeObject.getString("image");
+//
+//                            JSONArray missedIngredients = recipeObject.getJSONArray("missedIngredients");
+//                            List<Ingredient> missedIngredientsList = new ArrayList<>();
+//                            for (int j = 0; j < missedIngredients.length(); j++) {
+//                                JSONObject ingredientObject = missedIngredients.getJSONObject(j);
+//                                Ingredient ingredients = new Ingredient();
+//                                ingredients.setId(ingredientObject.getString("id"));
+//                                ingredients.setName(ingredientObject.getString("name"));
+//                                ingredients.setUnit(ingredientObject.getString("unit"));
+//                                ingredients.setAmount(ingredientObject.getString("amount"));
+//                                missedIngredientsList.add(ingredients);
+//                            }
+//
+//                            int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
+//                            double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
+//
+//                            String missedPer = String.valueOf((int) missedPercentage);
+//                            String missedCount = String.valueOf(missedIngredients.length());
+//
+//
+//                            // Create a Recipe object and add it to the list
+//                            Recipe recipe = new Recipe(id, image, name, missedPer, missedCount, "", "", missedIngredientsList);
+//                            recipes.add(recipe);
+//                        }
+//
+//                        // Convert the list of recipes to JSON
+//                        String recipesJson = new Gson().toJson(recipes);
+//                        replaceFragment(new RecipePageFragment(recipesJson));
+//                    }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(getActivity(), "Error parsing recipes", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                }
+//
+//
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(getActivity(), "Failed to fetch recipes", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//
+//        MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
+//    }
     private void fetchRecipesAndStartRecipePage() {
-        String ingredients = allIngredientNames;
+        String aingredients = allIngredientNames;
         String apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your Spoonacular API key
+        String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
+        String url = apiUrl + "?ingredients=" + aingredients + "&ranking=2&number=10&apiKey=" + apiKey;
 
-        String url = apiUrl + "?ingredients=" + ingredients + "&ranking=2&number=10&apiKey=" + apiKey;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    if (response == null || response.length() == 0) {
+                        Toast.makeText(getContext(), "No recipes found or empty response", Toast.LENGTH_SHORT).show();
+                        return; // Prevents further processing and keeps the user on the current fragment
+                    }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                    try {
+                        List<Recipe> recipes = new ArrayList<>();
+                        for (int i = 0; i < response.length(); i++) {
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            List<Recipe> recipes = new ArrayList<>();
-
-                            for (int i = 0; i < response.length(); i++) {
                                 JSONObject recipeObject = response.getJSONObject(i);
                                 String id = recipeObject.getString("id");
                                 String name = recipeObject.getString("title");
@@ -151,35 +223,31 @@ public class HomeFragment extends Fragment {
                                 }
 
                                 int totalIngredients = recipeObject.getInt("usedIngredientCount") + missedIngredients.length();
-                                double missedPercentage = totalIngredients == 0 ? 0 :  (double) missedIngredients.length() / totalIngredients * 100;
+                                double missedPercentage = totalIngredients == 0 ? 0 : (double) missedIngredients.length() / totalIngredients * 100;
 
-                                String missedPer = String.valueOf((int)missedPercentage);
+                                String missedPer = String.valueOf((int) missedPercentage);
                                 String missedCount = String.valueOf(missedIngredients.length());
 
 
                                 // Create a Recipe object and add it to the list
-                                Recipe recipe = new Recipe(id, image, name, missedPer,missedCount, "", "",missedIngredientsList);
+                                Recipe recipe = new Recipe(id, image, name, missedPer, missedCount, "", "", missedIngredientsList);
                                 recipes.add(recipe);
-                            }
 
-                            // Convert the list of recipes to JSON
-                            String recipesJson = new Gson().toJson(recipes);
-
-                            replaceFragment(new RecipePageFragment(recipesJson));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Handle JSON parsing error
                         }
-                    }
-                    }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
+                        if (!recipes.isEmpty()) {
+                            String recipesJson = new Gson().toJson(recipes);
+                            replaceFragment(new RecipePageFragment(recipesJson));
+                        } else {
+                            Toast.makeText(getContext(), "No recipes found", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(getContext(), "Error parsing recipes", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }, error -> {
+            Toast.makeText(getContext(), "Network error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+        });
 
-        // Add the request to the RequestQueue
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
     }
 
@@ -194,30 +262,34 @@ public class HomeFragment extends Fragment {
             userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Assuming you have a "name" field in your user node
+                    if (dataSnapshot.exists() && dataSnapshot.hasChild("name")) {
                         String userName = dataSnapshot.child("name").getValue(String.class);
-
-                        // Now you have the user's name, you can use it as needed
-                        // For example, display it in a TextView
-                        TextView userNameTextView = view.findViewById(R.id.welcome);
-                        userNameTextView.setText("Hi, " + userName + "!");
+                        if (userName != null) {
+                            TextView userNameTextView = view.findViewById(R.id.welcome);
+                            userNameTextView.setText("Hi, " + userName + "!");
+                        }
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Handle errors
                     Toast.makeText(getActivity(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
+    private void setupViewListeners(View view) {
+        view.findViewById(R.id.rectangle_8).setOnClickListener(v -> replaceFragment(new InventoryFragment()));
+        view.findViewById(R.id.rectangle_9).setOnClickListener(v -> fetchRecipesAndStartRecipePage());
+        view.findViewById(R.id.rectangle_4).setOnClickListener(v -> fetchRecipesAndStartRecipePage());
+        view.findViewById(R.id.rectangle_1).setOnClickListener(v -> replaceFragment(new GroceryFragment()));
+        view.findViewById(R.id.settings).setOnClickListener(v -> replaceFragment(new UserInfoFragment()));
+    }
+
     private void replaceFragment(Fragment fragment) {
-        // Replace the current fragment with the new one
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.homeFragmentContainer, fragment); // Use your fragment container ID
+        transaction.replace(R.id.homeFragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

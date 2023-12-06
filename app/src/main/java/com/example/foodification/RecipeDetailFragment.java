@@ -155,23 +155,22 @@ public class RecipeDetailFragment extends Fragment {
         };
 
         checkIfRecipeInFavorites(recipe.getId(), dataCheckCompleteListener);
+
         Button backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle back button click
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
+        backButton.setOnClickListener(v -> {
+
+
+
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
+
             }
         });
-         missingIngredientsButton= view.findViewById(R.id.addMissedIngredients);
-        missingIngredientsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addMissingIngredientsToGrocery(recipeDetail.getMissingIngredients());
-            }
-        });
+
+        missingIngredientsButton = view.findViewById(R.id.addMissedIngredients);
+
+        missingIngredientsButton.setOnClickListener(v -> addMissingIngredientsToGrocery(recipeDetail.getMissingIngredients()));
+
         return view;
     }
     private void checkIfRecipeInFavorites(String recipeId,OnDataCheckCompleteListener listener) {
@@ -243,6 +242,7 @@ public class RecipeDetailFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
                 // Handle errors
                 Log.e("FirebaseAppend", "Error reading data", databaseError.toException());
+                Toast.makeText(requireContext(), "Failed to Favorite Recipe", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -269,25 +269,23 @@ public class RecipeDetailFragment extends Fragment {
         return uniqueIngredients.isEmpty() ? "" : "• " + TextUtils.join("\n• ", uniqueIngredients);
     }
     private void addMissingIngredientsToGrocery(List<Ingredient> missedIngredients) {
-            for (Ingredient missingIngredient : missedIngredients) {
-                String name = missingIngredient.getName();
-                Log.i("RecipeDetailFragment","name: "+name);
-                String quantityStr = missingIngredient.getAmount();
-                String unit = missingIngredient.getUnit();
+        for (Ingredient missingIngredient : missedIngredients) {
+            String name = missingIngredient.getName();
+            String quantityStr = missingIngredient.getAmount();
+            String unit = missingIngredient.getUnit();
 
+            if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(quantityStr) && !TextUtils.isEmpty(unit) && !unit.equalsIgnoreCase("Select Unit")) {
+                double quantity = Double.parseDouble(quantityStr);
+                String groceryId = databaseReference.push().getKey();
+                Grocery grocery = new Grocery(groceryId, name, quantity, unit, false);
 
-                if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty() && !unit.equalsIgnoreCase("Select Unit")) {
-                    double quantity = Double.parseDouble(quantityStr);
-
-                    String groceryId = databaseReference.push().getKey();
-                    Grocery grocery = new Grocery(groceryId, name, quantity, unit,false);
-
-                    if (groceryId != null) {
-                        databaseReference.child(groceryId).setValue(grocery);
-                        Toast.makeText(requireContext(), "Grocery added!", Toast.LENGTH_SHORT).show();
-                    }
+                if (groceryId != null) {
+                    databaseReference.child(groceryId).setValue(grocery)
+                            .addOnSuccessListener(aVoid -> Toast.makeText(requireContext(), "Grocery added!", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e -> Toast.makeText(requireContext(), "Failed to add grocery", Toast.LENGTH_SHORT).show());
                 }
             }
+        }
     }
     private String formatEquipment(List<RecipeStep> steps) {
         Set<String> uniqueEquipment = new LinkedHashSet<>(); // Preserve the insertion order

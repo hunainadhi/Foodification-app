@@ -88,14 +88,11 @@ public class InventoryFragment extends Fragment {
             }
         });
 
+//        addIngredientButton.setOnClickListener(view -> showAddIngredientDialog());
         Button backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle back button click
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
+        backButton.setOnClickListener(v -> {
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
             }
         });
 
@@ -107,8 +104,7 @@ public class InventoryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle errors
-                // Log.w(TAG, "loadPost:onCancelled", error.toException());
+                Toast.makeText(requireContext(), "Error fetching data", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -140,8 +136,9 @@ public class InventoryFragment extends Fragment {
     private void deleteIngredient(int position) {
         Ingredient ingredient = adapter.getIngredient(position);
         if (ingredient != null) {
-            databaseReference.child(ingredient.getId()).removeValue();
-            Toast.makeText(requireContext(), "Ingredient deleted!", Toast.LENGTH_SHORT).show();
+            databaseReference.child(ingredient.getId()).removeValue()
+                    .addOnSuccessListener(aVoid -> Toast.makeText(requireContext(), "Ingredient deleted!", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error deleting ingredient", Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -167,9 +164,7 @@ public class InventoryFragment extends Fragment {
 
         modifyButton.setText("Modify");
 
-        modifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        modifyButton.setOnClickListener(view -> {
                 String name = nameEditText.getText().toString().trim();
                 String quantityStr = quantityEditText.getText().toString().trim();
                 String unit = unitSpinner.getSelectedItem().toString().trim();
@@ -181,15 +176,16 @@ public class InventoryFragment extends Fragment {
                     ingredient.setQuantity(quantity);
                     ingredient.setUnit(unit);
 
-                    databaseReference.child(ingredient.getId()).setValue(ingredient);
-
-                    Toast.makeText(requireContext(), "Ingredient modified!", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+                    databaseReference.child(ingredient.getId()).setValue(ingredient)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(requireContext(), "Ingredient modified!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            })
+                            .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error modifying ingredient", Toast.LENGTH_SHORT).show());
                 } else {
                     Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
 
         dialog.show();
     }
@@ -208,29 +204,28 @@ public class InventoryFragment extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitSpinner.setAdapter(spinnerAdapter);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addButton.setOnClickListener(view -> {
                 String name = nameEditText.getText().toString().trim();
                 String quantityStr = quantityEditText.getText().toString().trim();
                 String unit = unitSpinner.getSelectedItem().toString().trim();
 
                 if (!name.isEmpty() && !quantityStr.isEmpty() && !unit.isEmpty() && !unit.equalsIgnoreCase("Select Unit")) {
                     double quantity = Double.parseDouble(quantityStr);
-
                     String ingredientId = databaseReference.push().getKey();
                     Ingredient ingredient = new Ingredient(ingredientId, name, quantity, unit);
 
                     if (ingredientId != null) {
-                        databaseReference.child(ingredientId).setValue(ingredient);
-                        Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                        databaseReference.child(ingredientId).setValue(ingredient)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error adding ingredient", Toast.LENGTH_SHORT).show());
                     }
                 } else {
                     Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
 
         dialog.show();
     }
@@ -247,7 +242,8 @@ public class InventoryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle errors
+                Toast.makeText(requireContext(), "Error updating Inventory: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
 
             }
         });

@@ -160,8 +160,9 @@ public class GroceryFragment extends Fragment {
     private void deleteGrocery(int position) {
         Grocery grocery = adapter.getGrocery(position);
         if (grocery != null) {
-            databaseReference.child(grocery.getId()).removeValue();
-            Toast.makeText(requireContext(), "Grocery deleted!", Toast.LENGTH_SHORT).show();
+            databaseReference.child(grocery.getId()).removeValue()
+                    .addOnSuccessListener(aVoid -> Toast.makeText(requireContext(), "Grocery deleted!", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error deleting grocery", Toast.LENGTH_SHORT).show());
         }
     }
     private void showDeleteDialog() {
@@ -308,16 +309,18 @@ public class GroceryFragment extends Fragment {
             Double quantity = grocery.getQuantity();
             String unit = grocery.getUnit();
             grocery.setCheck(true);
-            databaseReference.child(grocery.getId()).setValue(grocery);
+            databaseReference.child(grocery.getId()).setValue(grocery)
+                    .addOnSuccessListener(aVoid -> {
+                        String ingredientId = databaseReferenceInv.push().getKey();
+                        Ingredient ingredient = new Ingredient(ingredientId, name, quantity, unit);
+                        if (ingredientId != null) {
+                            databaseReferenceInv.child(ingredientId).setValue(ingredient)
+                                    .addOnSuccessListener(aVoidInner -> Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error adding ingredient", Toast.LENGTH_SHORT).show());
+                        }
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error updating grocery", Toast.LENGTH_SHORT).show());
 
-            String ingredientId = databaseReferenceInv.push().getKey();
-            Ingredient ingredient = new Ingredient(ingredientId, name, quantity, unit);
-
-            if (ingredientId != null) {
-                databaseReferenceInv.child(ingredientId).setValue(ingredient);
-                Toast.makeText(requireContext(), "Ingredient added!", Toast.LENGTH_SHORT).show();
-
-            }
 
         }
 
@@ -337,7 +340,8 @@ public class GroceryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle errors
+                Toast.makeText(requireContext(), "Error updating grocery list: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
 
             }
         });

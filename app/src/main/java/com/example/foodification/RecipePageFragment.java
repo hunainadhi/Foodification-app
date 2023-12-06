@@ -1,38 +1,39 @@
 package com.example.foodification;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+        import android.annotation.SuppressLint;
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.fragment.app.Fragment;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+        import com.android.volley.Request;
+        import com.android.volley.Response;
+        import com.android.volley.toolbox.JsonArrayRequest;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.google.gson.Gson;
+        import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+        import java.lang.reflect.Type;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class RecipePageFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
-    private List<Recipe> recipeList = new ArrayList<>();
+    private List<Recipe> recipeList;
     private String recipesJson;
 
     public RecipePageFragment(String recipesJson) {
@@ -54,23 +55,20 @@ public class RecipePageFragment extends Fragment {
         recyclerView.setAdapter(recipeAdapter);
 
         fetchRecipesFromIntent();
+
         Button backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle back button click
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
+        backButton.setOnClickListener(v -> {
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
             }
         });
+
         return view;
     }
 
     private void fetchRecipesFromIntent() {
         if (recipesJson != null) {
-            Type listType = new TypeToken<List<Recipe>>() {
-            }.getType();
+            Type listType = new TypeToken<List<Recipe>>() {}.getType();
             recipeList = new Gson().fromJson(recipesJson, listType);
             updateRecipeData();
         }
@@ -87,65 +85,45 @@ public class RecipePageFragment extends Fragment {
     }
 
     private void fetchRecipeDetailsAndOpenDetailFragment(String recipeId, List<Ingredient> missedIngredients, Recipe recipe) {
-                String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
-                String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
-                String Name = recipe.getName();
-                String url = apiUrl + "?apiKey=" + apiKey;
-                ProgressBarClass.getInstance().showProgress(getContext());
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response) {
-                                ProgressBarClass.getInstance().dismissProgress();
-                                try {
-
-                                    RecipeDetail recipeDetail = parseRecipeDetail(response, Name, missedIngredients, recipe.getImage());
-                                    openRecipeDetailFragment(recipeDetail, recipe);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, error -> {
-                    ProgressBarClass.getInstance().dismissProgress();
-                    // Handle error
-                });
-
-                MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
-
-
-    }
-
-    private void getRecipeName(String recipeId, RecipeNameCallback callback) {
-        String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/summary";
+        String apiUrl = "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions";
         String apiKey = "29f9c9cce62944e08bef23978523ad56"; // Replace with your API key
-
         String url = apiUrl + "?apiKey=" + apiKey;
 
         ProgressBarClass.getInstance().showProgress(getContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
+                    ProgressBarClass.getInstance().dismissProgress();
+                    if (response == null || response.length() == 0) {
+                        Toast.makeText(getContext(), "Empty or null response for recipe details", Toast.LENGTH_SHORT).show();
+                        return; // Prevents further processing and keeps the user on the current fragment
+                    }
+
                     try {
-                        ProgressBarClass.getInstance().dismissProgress();
-                        String recipeName = response.getString("title");
-                        callback.onRecipeNameReceived(recipeName);
+                        RecipeDetail recipeDetail = parseRecipeDetail(response, recipe.getName(), missedIngredients, recipe.getImage());
+                        if (recipeDetail != null) {
+                            openRecipeDetailFragment(recipeDetail, recipe);
+                        } else {
+                            Toast.makeText(getContext(), "No detail found for the recipe", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (JSONException e) {
-                        ProgressBarClass.getInstance().dismissProgress();
+                        Toast.makeText(getContext(), "Error parsing recipe details", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }, error -> {
-            // Handle error
+            ProgressBarClass.getInstance().dismissProgress();
+            Toast.makeText(getContext(), "Network error occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
         });
 
-        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonArrayRequest);
     }
 
-    private RecipeDetail parseRecipeDetail(JSONArray response, String rName, List<Ingredient> missedIngredients, String image) throws JSONException {
+    private RecipeDetail parseRecipeDetail(JSONArray response, String recipeName, List<Ingredient> missedIngredients, String image) throws JSONException {
         RecipeDetail recipeDetail = new RecipeDetail();
 
         if (response.length() > 0) {
             JSONObject recipeObject = response.getJSONObject(0);
-            //  recipeDetail.setName(recipeObject.optString("name", ""));
-            recipeDetail.setName(rName);
+            recipeDetail.setName(recipeName);
 
             JSONArray stepsArray = recipeObject.getJSONArray("steps");
             List<RecipeStep> steps = new ArrayList<>();
@@ -153,10 +131,8 @@ public class RecipePageFragment extends Fragment {
             for (int i = 0; i < stepsArray.length(); i++) {
                 JSONObject stepObject = stepsArray.getJSONObject(i);
                 RecipeStep step = new RecipeStep();
-
                 step.setNumber(stepObject.getInt("number"));
                 step.setStep(stepObject.getString("step"));
-
                 // Parsing equipment
                 JSONArray equipmentArray = stepObject.getJSONArray("equipment");
                 List<Equipment> equipmentList = new ArrayList<>();
@@ -187,22 +163,16 @@ public class RecipePageFragment extends Fragment {
             recipeDetail.setSteps(steps);
             recipeDetail.setMissingIngredients(missedIngredients);
             recipeDetail.setImage(image);
-
-
         }
 
         return recipeDetail;
     }
 
-
     private void openRecipeDetailFragment(RecipeDetail recipeDetail, Recipe recipe) {
         RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail, recipe);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.homeFragmentContainer, fragment) // Make sure the ID matches with your layout
+                .replace(R.id.homeFragmentContainer, fragment)
                 .addToBackStack(null)
                 .commit();
     }
-}
-interface RecipeNameCallback {
-    void onRecipeNameReceived(String name);
 }
